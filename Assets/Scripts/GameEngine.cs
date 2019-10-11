@@ -17,6 +17,7 @@ public class GameEngine : MonoBehaviour
     
     [SerializeField] private float _bpm = 115f;
     private float _beatFraction;
+    public float BeatFraction { get { return _beatFraction; }}
     private float _currentBeatCounter = 0f;
 
     // Tiles

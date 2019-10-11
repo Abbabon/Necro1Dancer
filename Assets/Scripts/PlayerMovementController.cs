@@ -7,6 +7,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     private Transform _transform;
     private bool _movedOnBeat;
+    protected Vector3Int _myPosition;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void Start()
     {
+        _myPosition = GameEngine.Instance.Tilemap.WorldToCell(transform.position);
         GameEngine.Instance.Beat += OnBeat;
     }
 
@@ -37,7 +39,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (!_movedOnBeat)
         {
-            _transform.Translate(vectorFactor * Vector2.right);
+            Vector3Int step = Vector3Int.right * vectorFactor;
+            transform.Translate(GameEngine.Instance.Tilemap.CellToWorld(_myPosition + step) - GameEngine.Instance.Tilemap.CellToWorld(_myPosition));
+            _myPosition += step;
+            
             _movedOnBeat = true;
         }
         else // dont move if moved on beat, penalize player
