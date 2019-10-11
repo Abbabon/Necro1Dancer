@@ -745,6 +745,16 @@ PrefabInstance:
       propertyPath: _menuCanvasGroup
       value: 
       objectReference: {fileID: 1928334691}
+    - target: {fileID: 266941548234544234, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a8daa4dbf4f20e4980f6e799e67aed3, type: 3}
+    - target: {fileID: 266941548234544234, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
 --- !u!1001 &1232222085621619990

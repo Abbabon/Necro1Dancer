@@ -99,7 +99,7 @@ public class GameEngine : MonoBehaviour
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_gameRunning){
             _currentBeatCounter += Time.deltaTime;
@@ -118,7 +118,9 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_retryCanvasGroup, false);
         ChangeCanvasGroupState(_hudCanvasGroup, true);
         
-        //TODO: start music
+        _audioSource.Stop();
+        _audioSource.Play();
+        
         _gameRunning = true;
         InitializeSession();
     }
