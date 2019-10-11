@@ -50,6 +50,7 @@ public class PlayerMovementController : MonoBehaviour
             }
             else
             {
+                
                 //todo: hit dat mob
             }
             
