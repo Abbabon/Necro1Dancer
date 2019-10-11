@@ -19,6 +19,10 @@ public class BeesCounter : MonoBehaviour
     }
 
     private void OnAmmoChanged(int ammo){
-        _image.color = (ammo >= _index) ? Color.white : new Color(1,1,1,0);
+        var newColor = (ammo >= _index) ? Color.white : new Color(1,1,1,0);
+        if (newColor != _image.color)
+            LeanTween.scale(gameObject, Vector3.one * 1.3f, 0.3f).setEasePunch();
+        _image.color = newColor;
+        
     }
 }

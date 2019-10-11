@@ -21,6 +21,9 @@ public class HealthCounter : MonoBehaviour
     }
 
     private void OnHealthChanged(int health){
-        _image.sprite = (health >= _index) ? fullSprite : emptySprite;
+         var newSprite = (health >= _index) ? fullSprite : emptySprite;
+         if (newSprite != _image.sprite)
+             LeanTween.scale(gameObject, Vector3.one * 1.3f, 0.3f).setEasePunch();
+         _image.sprite = newSprite;
     }
 }
