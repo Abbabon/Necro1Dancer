@@ -16,5 +16,10 @@ public abstract class MovingObject : MonoBehaviour
         GameEngine.Instance.Beat += OnBeat;
     }
 
+    protected void OnDestroy()
+    {
+        GameEngine.Instance.Beat -= OnBeat;
+    }
+
     protected abstract void OnBeat();
 }

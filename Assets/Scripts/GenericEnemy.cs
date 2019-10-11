@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GenericEnemy : MovingObject
 {
+    public Action OnDeathEvent;
+
     protected override void OnBeat()
     {
         MoveType stepDir = _moveSet[_moveIndex];
@@ -28,5 +30,14 @@ public class GenericEnemy : MovingObject
                 return new Vector3Int(0, 1, 0);
         }
         return Vector3Int.zero;
+    }
+
+    protected void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            OnDeathEvent?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }
