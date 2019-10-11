@@ -93,9 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dcc9fc3e786f641b57599245bf238c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _toSpawn: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-    type: 3}
+  _toSpawn: {fileID: 0}
   _spawnOffset: {x: 1, y: 0}
   _spawnOnStart: 1
-  _waitTillDeath: 1
-  _spawnBeats: 2
+  _waitTillDeath: 0
+  _spawnBeats: 0

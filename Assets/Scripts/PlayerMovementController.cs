@@ -40,8 +40,18 @@ public class PlayerMovementController : MonoBehaviour
         if (!_movedOnBeat)
         {
             Vector3Int step = Vector3Int.right * vectorFactor;
-            transform.Translate(GameEngine.Instance.Tilemap.CellToWorld(_myPosition + step) - GameEngine.Instance.Tilemap.CellToWorld(_myPosition));
-            _myPosition += step;
+            var tilemap = GameEngine.Instance.Tilemap;
+            Vector3 future = tilemap.CellToWorld(_myPosition + step);
+            Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
+            if (other == null || other.gameObject == gameObject)
+            {
+                transform.Translate(future - tilemap.CellToWorld(_myPosition));
+                _myPosition += step;
+            }
+            else
+            {
+                //todo: hit dat mob
+            }
             
             _movedOnBeat = true;
         }

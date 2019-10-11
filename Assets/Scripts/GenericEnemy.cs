@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class GenericEnemy : MovingObject
 {
+    [SerializeField] int _beatsToLive;
+
     public Action OnDeathEvent;
+
+    private int _beatsAlive;
 
     protected override void OnBeat()
     {
+        if (_beatsToLive > 0 && ++_beatsAlive > _beatsToLive)
+        {
+            Die();
+            return;
+        }
+        
         MoveType stepDir = _moveSet[_moveIndex];
         Vector3Int step = makeStep(stepDir);
         var tilemap = GameEngine.Instance.Tilemap;
         Vector3 future = tilemap.CellToWorld(_myPosition + step);
-        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.6f);
-        if (other == null)
+        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
+        if (other == null || other.gameObject == gameObject)
         {
             transform.Translate(future - tilemap.CellToWorld(_myPosition));
             _myPosition += step;
@@ -22,7 +32,7 @@ public class GenericEnemy : MovingObject
         }
         else
         {
-            Debug.Log("Boop!");
+            //todo: hit dat player
         }
     }
 
@@ -46,8 +56,13 @@ public class GenericEnemy : MovingObject
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
             OnDeathEvent?.Invoke();
             Destroy(gameObject);
-        }
     }
 }
