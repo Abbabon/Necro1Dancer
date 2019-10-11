@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [SerializeField] Projectile _projectilePrefab;
+
     private Transform _transform;
     private bool _movedOnBeat;
+    private int _lastMovedDirection;
 
     protected void Awake()
     {
@@ -30,6 +33,15 @@ public class PlayerMovementController : MonoBehaviour
             MoveTile(1);
         }else if (Input.GetKeyDown(KeyCode.LeftArrow)){
             MoveTile(-1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (GameEngine.Instance.Ammo > 0)
+            {
+                ShootProjectile();
+                GameEngine.Instance.LoseAmmo();
+            }
         }
     }
 
@@ -62,6 +74,8 @@ public class PlayerMovementController : MonoBehaviour
                     GameEngine.Instance.LoseHealth();
                 }
             }
+                
+            _lastMovedDirection = vectorFactor;
             
             _movedOnBeat = true;
         }
@@ -80,5 +94,11 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         _movedOnBeat = false;
+    }
+
+    private void ShootProjectile()
+    {
+        var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
+        projectile.Direction = _lastMovedDirection;
     }
 }
