@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!225 &215862106 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8668929357767491145, guid: 189228cf131144356b84fd42a4451ab2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517256081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &218541508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8179055563320904654, guid: 594a2f5caf1244d7b808c837d0bab30f,
@@ -158,6 +164,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &464276595 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 127787527756608734, guid: 189228cf131144356b84fd42a4451ab2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517256081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &683647086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 842563755742033444, guid: 18fdcfe6ed5c8094ab1022eef8534751,
@@ -350,26 +362,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -40.69992
-      objectReference: {fileID: 0}
-    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -42.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 676260835648933281, guid: 189228cf131144356b84fd42a4451ab2,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -386,6 +378,26 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 676260835648933281, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40.69992
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -42.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083110391389536580, guid: 189228cf131144356b84fd42a4451ab2,
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
@@ -477,6 +489,12 @@ Tilemap:
   m_CorrespondingSourceObject: {fileID: 3434825079237978393, guid: 3742fe42117044c668451d2bc3af7bd8,
     type: 3}
   m_PrefabInstance: {fileID: 3434825080716035027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1928334691 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5267884425309817327, guid: 189228cf131144356b84fd42a4451ab2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517256081}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1945037064
 GameObject:
@@ -711,6 +729,31 @@ PrefabInstance:
         type: 3}
       propertyPath: TestBeat
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: _hudCanvasGroup
+      value: 
+      objectReference: {fileID: 215862106}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: _retryCanvasGroup
+      value: 
+      objectReference: {fileID: 464276595}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: _menuCanvasGroup
+      value: 
+      objectReference: {fileID: 1928334691}
+    - target: {fileID: 266941548234544234, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a8daa4dbf4f20e4980f6e799e67aed3, type: 3}
+    - target: {fileID: 266941548234544234, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: Loop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
