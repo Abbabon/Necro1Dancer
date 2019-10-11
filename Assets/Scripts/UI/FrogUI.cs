@@ -19,7 +19,8 @@ public class FrogUI : MonoBehaviour
     }
     
     void OnBeat(){
-        spriteIndex = (spriteIndex+1)%_sprites.Length;
-        _image.sprite = _sprites[spriteIndex];
+//        spriteIndex = (spriteIndex+1)%_sprites.Length;
+//        _image.sprite = _sprites[spriteIndex];
+        LeanTween.scale(gameObject, Vector3.one * 1.2f, 0.2f).setEasePunch();
     }
 }
