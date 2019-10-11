@@ -85,7 +85,7 @@ public class GameEngine : MonoBehaviour
     {
         if (TestBeat)
         {
-            Debug.Log("Boop");
+            //Debug.Log("Boop");
             _audioSource.PlayOneShot(_audioTestClip);
         }
 
