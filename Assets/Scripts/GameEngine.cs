@@ -28,7 +28,7 @@ public class GameEngine : MonoBehaviour
 
         _audioSource = GetComponent<AudioSource>();
 
-        _beatFraction = 1 / (_bpm / 60f);
+        _beatFraction = 60f / _bpm;
         Beat += OnBeat;
     }
     
