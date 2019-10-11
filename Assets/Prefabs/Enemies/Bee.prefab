@@ -94,4 +94,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCollectable: 0
-  _moveSet: 0100000000000000
+  _moveSet: 

@@ -5,10 +5,20 @@ using UnityEngine;
 
 public class GenericEnemy : MovingObject
 {
+    [SerializeField] int _beatsToLive;
+
     public Action OnDeathEvent;
+
+    private int _beatsAlive;
 
     protected override void OnBeat()
     {
+        if (_beatsToLive > 0 && ++_beatsAlive > _beatsToLive)
+        {
+            Die();
+            return;
+        }
+        
         MoveType stepDir = _moveSet[_moveIndex];
         Vector3Int step = makeStep(stepDir);
         var tilemap = GameEngine.Instance.Tilemap;
@@ -46,8 +56,13 @@ public class GenericEnemy : MovingObject
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
             OnDeathEvent?.Invoke();
             Destroy(gameObject);
-        }
     }
 }
