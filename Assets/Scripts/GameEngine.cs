@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,6 +19,21 @@ public class GameEngine : MonoBehaviour
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
     
+    //Debug-Buttons
+    [Button]
+    private void LoseHealth()
+    {
+        _health--;
+        HealthChanged?.Invoke(_health);
+    }
+    [Button]
+    private void GainAmmo()
+    {
+        _ammo++;
+        AmmoChanged?.Invoke(_ammo);
+    }
+    
+    //TODO: Sound Manager 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
     public bool TestBeat;
@@ -57,7 +74,7 @@ public class GameEngine : MonoBehaviour
         _health = 3;
         HealthChanged?.Invoke(_health);
         
-        _ammo = 3;
+        _ammo = 0;
         AmmoChanged?.Invoke(_ammo);
         
         _sessionNumberOfBeats = 0;
@@ -87,5 +104,12 @@ public class GameEngine : MonoBehaviour
                 _currentBeatCounter = 0;
             }
         }
+    }
+
+    public void StartGame()
+    {
+        //TODO: replace GUI elements
+        
+        InitializeSession();
     }
 }
