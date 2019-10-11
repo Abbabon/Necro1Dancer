@@ -11,8 +11,8 @@ public class GenericEnemy : MovingObject
         Vector3Int step = makeStep(stepDir);
         var tilemap = GameEngine.Instance.Tilemap;
         Vector3 future = tilemap.CellToWorld(_myPosition + step);
-        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.6f);
-        if (other == null)
+        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
+        if (other == null || other.gameObject == gameObject)
         {
             transform.Translate(future - tilemap.CellToWorld(_myPosition));
             _myPosition += step;
@@ -20,7 +20,7 @@ public class GenericEnemy : MovingObject
         }
         else
         {
-            Debug.Log("Boop!");
+            //todo: hit dat player
         }
     }
 
