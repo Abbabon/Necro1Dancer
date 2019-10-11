@@ -10,6 +10,7 @@ public class PlayerMovementController : MonoBehaviour
     private Transform _transform;
     private bool _movedOnBeat;
     protected Vector3Int _myPosition;
+    private CameraShakeEffect _cameraShaker;
     
     //Animations
     [SerializeField] private Sprite[] _idleSpriteSprites;
@@ -31,6 +32,7 @@ public class PlayerMovementController : MonoBehaviour
     protected void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
+        _cameraShaker = new CameraShakeEffect();
     }
 
     protected void Update()
@@ -78,6 +80,7 @@ public class PlayerMovementController : MonoBehaviour
             }
             else
             {
+                StartCoroutine(_cameraShaker.shake());
                 if (enemy.IsCollectable)
                 {
                     enemy.KillEnemy();
