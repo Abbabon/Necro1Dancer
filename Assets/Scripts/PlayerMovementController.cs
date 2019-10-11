@@ -8,6 +8,7 @@ public class PlayerMovementController : MonoBehaviour
     private Transform _transform;
     private bool _movedOnBeat;
     protected Vector3Int _myPosition;
+    private CameraShakeEffect _shakeEffect;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _myPosition = GameEngine.Instance.Tilemap.WorldToCell(transform.position);
         GameEngine.Instance.Beat += OnBeat;
+        _shakeEffect = new CameraShakeEffect();
     }
 
     void Update()
@@ -50,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
             }
             else
             {
-                
+                StartCoroutine(_shakeEffect.shake());
                 //todo: hit dat mob
             }
             
