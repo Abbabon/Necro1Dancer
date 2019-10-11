@@ -11,9 +11,19 @@ public class GenericEnemy : MovingObject
     {
         MoveType stepDir = _moveSet[_moveIndex];
         Vector3Int step = makeStep(stepDir);
-        transform.Translate(GameEngine.Instance.Tilemap.CellToWorld(_myPosition + step) - GameEngine.Instance.Tilemap.CellToWorld(_myPosition));
-        _myPosition += step;
-        _moveIndex = ++_moveIndex % _moveSet.Count;
+        var tilemap = GameEngine.Instance.Tilemap;
+        Vector3 future = tilemap.CellToWorld(_myPosition + step);
+        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.6f);
+        if (other == null)
+        {
+            transform.Translate(future - tilemap.CellToWorld(_myPosition));
+            _myPosition += step;
+            _moveIndex = ++_moveIndex % _moveSet.Count;
+        }
+        else
+        {
+            Debug.Log("Boop!");
+        }
     }
 
     private Vector3Int makeStep(MoveType stepDir)

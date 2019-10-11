@@ -429,6 +429,11 @@ PrefabInstance:
       propertyPath: _tilemap
       value: 
       objectReference: {fileID: 1748740810}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: TestBeat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
 --- !u!1001 &1232222085621619990
