@@ -7,20 +7,18 @@ public class PlayerMovementController : MonoBehaviour
 {
     private Transform _transform;
     private bool _movedOnBeat;
-    protected Vector3Int _myPosition;
 
-    private void Awake()
+    protected void Awake()
     {
         _transform = GetComponent<Transform>();
     }
 
-    void Start()
+    protected void Start()
     {
-        _myPosition = GameEngine.Instance.Tilemap.WorldToCell(transform.position);
         GameEngine.Instance.Beat += OnBeat;
     }
 
-    void Update()
+    protected void Update()
     {
         HandleInput();
     }
@@ -39,18 +37,30 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (!_movedOnBeat)
         {
-            Vector3Int step = Vector3Int.right * vectorFactor;
             var tilemap = GameEngine.Instance.Tilemap;
-            Vector3 future = tilemap.CellToWorld(_myPosition + step);
-            Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
-            if (other == null || other.gameObject == gameObject)
+
+            var step = Vector3Int.right * vectorFactor;
+            var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + step);
+            
+            var futurePos = new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f);
+            var other = Physics2D.OverlapCircle(futurePos, 0.1f);
+            
+            var enemy = other?.GetComponent<GenericEnemy>();            
+            if (enemy == null)
             {
-                transform.Translate(future - tilemap.CellToWorld(_myPosition));
-                _myPosition += step;
+                transform.position = futureCell;
             }
             else
             {
-                //todo: hit dat mob
+                if (enemy.IsCollectable)
+                {
+                    enemy.KillEnemy();
+                    GameEngine.Instance.GainAmmo();
+                }
+                else 
+                {
+                    GameEngine.Instance.LoseHealth();
+                }
             }
             
             _movedOnBeat = true;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4429312821029884353}
   - component: {fileID: 1488109197044168929}
+  - component: {fileID: 4515041867643755382}
   - component: {fileID: 3938695392400439356}
   m_Layer: 0
   m_Name: Bee
@@ -81,6 +82,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &4515041867643755382
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989819710562527395}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &3938695392400439356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,5 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0b6b077f4d485a8b98214cb487482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCollectable: 0
+  IsCollectable: 1
   _moveSet: 
+  _beatsToLive: 0

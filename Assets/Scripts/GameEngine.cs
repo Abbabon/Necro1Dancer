@@ -19,15 +19,15 @@ public class GameEngine : MonoBehaviour
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
     
-    //Debug-Buttons
     [Button]
-    private void LoseHealth()
+    public void LoseHealth()
     {
         _health--;
         HealthChanged?.Invoke(_health);
     }
+
     [Button]
-    private void GainAmmo()
+    public void GainAmmo()
     {
         _ammo++;
         AmmoChanged?.Invoke(_ammo);
