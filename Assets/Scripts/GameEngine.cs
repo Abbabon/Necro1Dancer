@@ -37,10 +37,15 @@ public class GameEngine : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
     public bool TestBeat;
-        
-    private bool _isRunning = true;
-    
-    [SerializeField] private float _bpm = 115f;
+
+    // Session-State related
+    [SerializeField] private CanvasGroup _menuCanvasGroup;
+    [SerializeField] private CanvasGroup _retryCanvasGroup;
+    [SerializeField] private CanvasGroup _hudCanvasGroup;
+    private bool _gameRunning = false;
+    public bool GameRunning { get { return _gameRunning; } }
+
+    private float _bpm = 115f;
     private float _beatFraction;
     public float BeatFraction { get { return _beatFraction; }}
     private float _currentBeatCounter = 0f;
@@ -65,8 +70,9 @@ public class GameEngine : MonoBehaviour
 
     private void Start()
     {
-        //TODO: move to session start
-        InitializeSession();
+        ChangeCanvasGroupState(_menuCanvasGroup, true);
+        ChangeCanvasGroupState(_retryCanvasGroup, false);
+        ChangeCanvasGroupState(_hudCanvasGroup, false);
     }
 
     private void InitializeSession()
@@ -95,7 +101,7 @@ public class GameEngine : MonoBehaviour
 
     private void Update()
     {
-        if (_isRunning){
+        if (_gameRunning){
             _currentBeatCounter += Time.deltaTime;
 
             if (_currentBeatCounter > _beatFraction)
@@ -108,8 +114,28 @@ public class GameEngine : MonoBehaviour
 
     public void StartGame()
     {
-        //TODO: replace GUI elements
+        ChangeCanvasGroupState(_menuCanvasGroup, false);
+        ChangeCanvasGroupState(_retryCanvasGroup, false);
+        ChangeCanvasGroupState(_hudCanvasGroup, true);
         
+        //TODO: start music
+        _gameRunning = true;
         InitializeSession();
+    }
+    
+    public void StopGame()
+    {
+        //TODO: anything related to high scores and retry screen wassach go in
+        
+        ChangeCanvasGroupState(_menuCanvasGroup, false);
+        ChangeCanvasGroupState(_retryCanvasGroup, true);
+        ChangeCanvasGroupState(_hudCanvasGroup, false);;
+        _gameRunning = false;
+    }
+
+    private void ChangeCanvasGroupState(CanvasGroup canvasGroup, bool state)
+    {
+        canvasGroup.alpha = state ? 1 : 0;
+        canvasGroup.interactable = state;
     }
 }
