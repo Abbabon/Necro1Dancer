@@ -9,6 +9,14 @@ public class GameEngine : MonoBehaviour
     // Beat-related
     public Action Beat;
     
+    // Gameplay-related
+    private int _health;
+    public Action<int> HealthChanged;
+    private int _ammo;
+    public Action<int> AmmoChanged;
+    private int _sessionNumberOfBeats;
+    public Action<int> BeatsChanged;
+    
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
     public bool TestBeat;
@@ -37,7 +45,25 @@ public class GameEngine : MonoBehaviour
         _beatFraction = 60f / _bpm;
         Beat += OnBeat;
     }
-    
+
+    private void Start()
+    {
+        //TODO: move to session start
+        InitializeSession();
+    }
+
+    private void InitializeSession()
+    {
+        _health = 3;
+        HealthChanged?.Invoke(_health);
+        
+        _ammo = 3;
+        AmmoChanged?.Invoke(_ammo);
+        
+        _sessionNumberOfBeats = 0;
+        BeatsChanged?.Invoke(_sessionNumberOfBeats);
+    }
+
     private void OnBeat()
     {
         if (TestBeat)
@@ -45,6 +71,9 @@ public class GameEngine : MonoBehaviour
             Debug.Log("Boop");
             _audioSource.PlayOneShot(_audioTestClip);
         }
+
+        _sessionNumberOfBeats++;
+        BeatsChanged?.Invoke(_sessionNumberOfBeats);
     }
 
     private void Update()
@@ -54,7 +83,7 @@ public class GameEngine : MonoBehaviour
 
             if (_currentBeatCounter > _beatFraction)
             {
-                Beat.Invoke();
+                Beat?.Invoke();
                 _currentBeatCounter = 0;
             }
         }
