@@ -2,23 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefaultNamespace
+public abstract class MovingObject : MonoBehaviour
 {
-    public class MovingObject : MonoBehaviour
-    {
-        public bool IsCollectable;
-        [SerializeField] public List<MoveType> _moveset;
-        private int _moveIndex; 
+    public bool IsCollectable;
+    [SerializeField] protected List<MoveType> _moveSet;
+    protected int _moveIndex = 0; 
         
-        private void Start()
-        {
-            GameEngine.Instance.Beat += OnBeat;
-        }
-
-
-        public virtual void OnBeat()
-        {
-               
-        }
+    protected void Start()
+    {
+        GameEngine.Instance.Beat += OnBeat;
     }
+
+    protected abstract void OnBeat();
 }
