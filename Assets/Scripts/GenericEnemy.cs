@@ -15,12 +15,12 @@ public class GenericEnemy : MovingObject
     {
         if (_beatsToLive > 0 && ++_beatsAlive > _beatsToLive)
         {
-            Die();
+            KillEnemy();
             return;
         }
         
         MoveType stepDir = _moveSet[_moveIndex];
-        Vector3Int step = makeStep(stepDir);
+        Vector3Int step = MakeStep(stepDir);
         var tilemap = GameEngine.Instance.Tilemap;
         Vector3 future = tilemap.CellToWorld(_myPosition + step);
         Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
@@ -32,11 +32,11 @@ public class GenericEnemy : MovingObject
         }
         else
         {
-            //todo: hit dat player
+            GameEngine.Instance.LoseHealth();
         }
     }
 
-    private Vector3Int makeStep(MoveType stepDir)
+    private Vector3Int MakeStep(MoveType stepDir)
     {
         switch (stepDir)
         {
@@ -56,11 +56,11 @@ public class GenericEnemy : MovingObject
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Die();
+            KillEnemy();
         }
     }
 
-    private void Die()
+    public void KillEnemy()
     {
             OnDeathEvent?.Invoke();
             Destroy(gameObject);

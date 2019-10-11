@@ -15,21 +15,29 @@ public class GameEngine : MonoBehaviour
     private int _health;
     public Action<int> HealthChanged;
     private int _ammo;
+    public int Ammo { get { return _ammo; } }
     public Action<int> AmmoChanged;
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
     
-    //Debug-Buttons
     [Button]
-    private void LoseHealth()
+    public void LoseHealth()
     {
         _health--;
         HealthChanged?.Invoke(_health);
     }
+
     [Button]
-    private void GainAmmo()
+    public void GainAmmo()
     {
         _ammo++;
+        AmmoChanged?.Invoke(_ammo);
+    }
+
+    [Button]
+    public void LoseAmmo()
+    {
+        _ammo--;
         AmmoChanged?.Invoke(_ammo);
     }
     

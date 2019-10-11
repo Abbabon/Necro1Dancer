@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [SerializeField] Projectile _projectilePrefab;
+
     private Transform _transform;
     private bool _movedOnBeat;
     protected Vector3Int _myPosition;
@@ -17,20 +19,21 @@ public class PlayerMovementController : MonoBehaviour
     private int spriteIndex = 0;
     private bool facingRight = true;
     
-    private void Awake()
+    private int _lastMovedDirection;
+
+    protected void Awake()
     {
         _transform = GetComponent<Transform>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
-    void Start()
+    protected void Start()
     {
-        _myPosition = GameEngine.Instance.Tilemap.WorldToCell(transform.position);
         GameEngine.Instance.Beat += OnBeat;
     }
 
-    void Update()
+    protected void Update()
     {
         HandleInput();
     }
@@ -46,26 +49,47 @@ public class PlayerMovementController : MonoBehaviour
                 MoveTile(-1);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (GameEngine.Instance.Ammo > 0)
+            {
+                ShootProjectile();
+                GameEngine.Instance.LoseAmmo();
+            }
+        }
     }
 
     private void MoveTile(int vectorFactor)
     {
         if (!_movedOnBeat)
         {
-            //collisions:
             Vector3Int step = Vector3Int.right * vectorFactor;
             var tilemap = GameEngine.Instance.Tilemap;
-            Vector3 future = tilemap.CellToWorld(_myPosition + step);
-            Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
-            if (other == null || other.gameObject == gameObject)
+            var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + step);
+            
+            var futurePos = new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f);
+            var other = Physics2D.OverlapCircle(futurePos, 0.1f);
+            
+            var enemy = other?.GetComponent<GenericEnemy>();            
+            if (enemy == null)
             {
-                transform.Translate(future - tilemap.CellToWorld(_myPosition));
-                _myPosition += step;
+                transform.position = futureCell;
             }
             else
             {
-                //todo: hit dat mob
+                if (enemy.IsCollectable)
+                {
+                    enemy.KillEnemy();
+                    GameEngine.Instance.GainAmmo();
+                }
+                else 
+                {
+                    GameEngine.Instance.LoseHealth();
+                }
             }
+                
+            _lastMovedDirection = vectorFactor;
             
             if (vectorFactor > 0 && !facingRight)
             {
@@ -118,5 +142,11 @@ public class PlayerMovementController : MonoBehaviour
     public void DoneJumping()
     {
         _isJumping = false;
+    }
+
+    private void ShootProjectile()
+    {
+        var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
+        projectile.Direction = _lastMovedDirection;
     }
 }
