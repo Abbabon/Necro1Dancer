@@ -1147,6 +1147,7 @@ MonoBehaviour:
   _audioTestClip: {fileID: 8300000, guid: d29c0e233686d434e8786999f5861c4c, type: 3}
   TestBeat: 0
   _bpm: 115
+  _tilemap: {fileID: 1748740810}
 --- !u!4 &1881109896
 Transform:
   m_ObjectHideFlags: 0

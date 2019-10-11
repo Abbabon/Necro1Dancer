@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
-
+using UnityEngine.Tilemaps;
 
 public class GameEngine : MonoBehaviour
 {
+    // Beat-related
     public Action Beat;
     
     private AudioSource _audioSource;
@@ -19,10 +19,15 @@ public class GameEngine : MonoBehaviour
     private float _beatFraction;
     private float _currentBeatCounter = 0f;
 
+    // Tiles
+    [SerializeField] Tilemap _tilemap;
+    public Tilemap Tilemap { get { return _tilemap; } }
+
+    // Singleton
     private static GameEngine _instance;
     public static GameEngine Instance { get { return _instance; } }
 
-    void Awake()
+    protected void Awake()
     {
         _instance = this;
 
@@ -32,7 +37,6 @@ public class GameEngine : MonoBehaviour
         Beat += OnBeat;
     }
     
-
     private void OnBeat()
     {
         if (TestBeat)
