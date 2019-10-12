@@ -116,16 +116,14 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private bool HandleDrowning()
+    public void HandleDrowning()
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
         if (floor.name.Equals("water") || floor.name.Equals("water_alt"))
         {
             _animator.SetTrigger("Drown");
             transform.position = GameEngine.Instance.PlayerDrown();
-            return true;
         }
-        return false;
     }
 
     private void Flip()
@@ -137,8 +135,6 @@ public class PlayerMovementController : MonoBehaviour
     //'Reset' movement for this beat
     private void OnBeat()
     {
-        HandleDrowning();
-
         //animation:
         if (!_isJumping){
             _animator.SetTrigger("Breath");
