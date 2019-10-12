@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class GameEngine : MonoBehaviour
@@ -26,6 +27,11 @@ public class GameEngine : MonoBehaviour
     {
         _health--;
         HealthChanged?.Invoke(_health);
+
+        if (_health <= 0)
+        {
+            StopGame();
+        }
     }
 
     [Button]
@@ -132,6 +138,12 @@ public class GameEngine : MonoBehaviour
         
         _gameRunning = true;
         InitializeSession();
+    }
+
+    public void RestartScene()
+    {
+        //TODO: retry without scene loading
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     public void StopGame()

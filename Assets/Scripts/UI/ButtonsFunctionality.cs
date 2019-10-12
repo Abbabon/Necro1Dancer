@@ -11,6 +11,6 @@ public class ButtonsFunctionality : MonoBehaviour
 
     public void PressedRestart()
     {
-        GameEngine.Instance.StartGame();
+        GameEngine.Instance.RestartScene();
     }
 }
