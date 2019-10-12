@@ -26,7 +26,7 @@ public class GameEngine : MonoBehaviour
     [Button]
     public void LoseHealth()
     {
-        _screenFlash.Flash();
+        StartCoroutine(_screenFlash.Flash(_redFlashOfDoom));
         _health--;
         HealthChanged?.Invoke(_health);
 
@@ -61,7 +61,6 @@ public class GameEngine : MonoBehaviour
     [SerializeField] private CanvasGroup _menuCanvasGroup;
     [SerializeField] private CanvasGroup _retryCanvasGroup;
     [SerializeField] private CanvasGroup _hudCanvasGroup;
-    public CanvasGroup redFlashOfDoom { get { return _redFlashOfDoom; } }
     private bool _gameRunning = false;
     public bool GameRunning { get { return _gameRunning; } }
 

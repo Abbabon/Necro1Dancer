@@ -10,8 +10,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private Transform _graphicsTransform;
     private bool _actedOnBeat;
     protected Vector3Int _myPosition;
-    private CameraShakeEffect _cameraShaker;
-    
+    private CameraShakeEffect _cameraShaker = new CameraShakeEffect();
+
     //Animations
     private bool _isJumping = false;
     private Animator _animator;
@@ -28,7 +28,6 @@ public class PlayerMovementController : MonoBehaviour
     protected void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
-        _cameraShaker = new CameraShakeEffect();
     }
 
     protected void Update()

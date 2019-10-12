@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShakeEffect : MonoBehaviour
+public class CameraShakeEffect
 {
     public IEnumerator shake()
     {
