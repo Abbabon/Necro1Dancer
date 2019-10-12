@@ -43,7 +43,7 @@ public class GenericEnemy : MovingObject
         } //TODO: else - update animator, for the more complext enemies like the fish
         
         var hitOther = TryMove(_moveSet[_moveIndex]);
-        if (hitOther == null)
+        if (hitOther == null || hitOther.gameObject == gameObject)
         {
             _moveIndex = ++_moveIndex % _moveSet.Count;
         }
