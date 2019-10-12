@@ -24,7 +24,7 @@ public class PlayerMovementController : MovingObject
 
     protected void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     protected override void Start()
