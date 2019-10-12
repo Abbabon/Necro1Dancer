@@ -161,15 +161,6 @@ public class PlayerMovementController : MonoBehaviour
     private void OnAmmoChange(int ammo)
     {
         _animator.SetBool("HasAmmo", ammo > 0);
-        
-//        if (ammo > 0 && !LeanTween.isTweening(gameObject))
-//        {
-//            LeanTween.scale(gameObject, Vector3.one * 1.1f, 0.5f).setLoopPingPong();
-//        }
-//        else
-//        {
-//            LeanTween.cancelAll();
-//        }
     }
     
     
