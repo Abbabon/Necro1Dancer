@@ -64,6 +64,9 @@ public class PlayerMovementController : MovingObject
     {
         if (!_actedOnBeat)
         {
+            if (!CanMoveInDirection(move))
+                return;
+            
             var hitOther = TryMove(move);
             if (hitOther == null)
             {
@@ -115,14 +118,25 @@ public class PlayerMovementController : MovingObject
         }
     }
 
+    protected override void AfterMove()
+    {
+        HandleDrowning();
+    }
+
     public void HandleDrowning()
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
         if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt")))
         {
             _animator.SetTrigger("Drown");
-            GameEngine.Instance.PlayerDrown(); //transform.position = GameEngine.Instance.PlayerDrown();
+            transform.position = GameEngine.Instance.PlayerDrown();
         }
+    }
+    
+    public bool CanMoveInDirection(MoveType move)
+    {
+        var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(1 * (move == MoveType.Right ? 1 : -1), -1, 0));
+        return floor != null;
     }
 
     private void Flip()
@@ -145,6 +159,8 @@ public class PlayerMovementController : MovingObject
         {
             Penalize();
         }
+
+        CoyoteFrames();
 
         _actedOnBeat = false;
     }
@@ -175,6 +191,7 @@ public class PlayerMovementController : MovingObject
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
             projectile.Direction = _lastMovement;
             _actedOnBeat = true;
+            _animator.SetTrigger("Spit");
         }
     }
 
@@ -182,6 +199,4 @@ public class PlayerMovementController : MovingObject
     {
         _animator.SetBool("HasAmmo", ammo > 0);
     }
-
-
 }

@@ -71,8 +71,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0b6b077f4d485a8b98214cb487482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCollectable: 1
+  _isCollectable: 1
   _moveSet: 
+  _animationSprites:
+  - {fileID: 21300000, guid: 8a527dfe7331d7b47abe19499d7450fc, type: 3}
+  - {fileID: 21300000, guid: 71cac1126b4e73c41b3bb0af3c15220d, type: 3}
+  - {fileID: 21300000, guid: 86542eae584c197439f4827a0ef4af5a, type: 3}
+  _spriteRenderer: {fileID: 0}
   _beatsToLive: 0
 --- !u!1 &5543454572146280670
 GameObject:

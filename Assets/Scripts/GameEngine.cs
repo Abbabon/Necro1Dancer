@@ -24,7 +24,6 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
-    [SerializeField] PlayerMovementController _player;
 
     [Button]
     public void LoseHealth()
@@ -107,9 +106,7 @@ public class GameEngine : MonoBehaviour
 
     public Vector2 PlayerDrown()
     {
-        //LoseHealth();
-
-        DoScreenFlash();
+        LoseHealth();
         return _checkpoint;
     }
 
@@ -146,7 +143,6 @@ public class GameEngine : MonoBehaviour
             if (frameBeat > _previousBeat)
             {
                 Beat?.Invoke();
-                _player.HandleDrowning();
                 _previousBeat = frameBeat;
             }
         }

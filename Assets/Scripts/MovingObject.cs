@@ -67,5 +67,18 @@ public abstract class MovingObject : MonoBehaviour
         }
 
         transform.position = successful ? endPos : startPos;
+        AfterMove();
     }
+
+    protected IEnumerator CoyoteFrames()
+    {
+        float graceTime = GameEngine.Instance.BeatFraction / 5;
+        for (float time = 0; time < graceTime; time += Time.deltaTime)
+        {
+            yield return null;
+        }
+        AfterMove();
+    }
+
+    protected virtual void AfterMove() { }
 }
