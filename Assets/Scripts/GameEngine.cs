@@ -26,14 +26,13 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
-    [SerializeField] PlayerMovementController _player;
 
     [Button]
     public void LoseHealth()
     {
         DoScreenFlash();
 
-        //_health--;
+        _health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0)

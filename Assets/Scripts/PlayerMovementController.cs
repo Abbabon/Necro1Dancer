@@ -126,7 +126,7 @@ public class PlayerMovementController : MovingObject
         {
             Debug.Log("Drowning");
             _animator.SetTrigger("Drown");
-            GameEngine.Instance.PlayerDrown(); //transform.position = GameEngine.Instance.PlayerDrown();
+            transform.position = GameEngine.Instance.PlayerDrown();
         }
     }
     
@@ -154,9 +154,10 @@ public class PlayerMovementController : MovingObject
         //movement:
         if (!_actedOnBeat)
         {
-            HandleDrowning();
             Penalize();
         }
+
+        CoyoteFrames();
 
         _actedOnBeat = false;
     }
@@ -195,6 +196,4 @@ public class PlayerMovementController : MovingObject
     {
         _animator.SetBool("HasAmmo", ammo > 0);
     }
-
-
 }
