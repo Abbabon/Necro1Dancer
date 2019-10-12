@@ -10,6 +10,7 @@ public class GameEngine : MonoBehaviour
 {
     // Beat-related
     public Action Beat;
+    private float _beatEpsilon = 0.1f;
     
     // Gameplay-related
     private int _health;
@@ -107,12 +108,12 @@ public class GameEngine : MonoBehaviour
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_gameRunning){
             _currentBeatCounter += Time.deltaTime;
 
-            if (_currentBeatCounter > _beatFraction)
+            if (_currentBeatCounter >= _beatFraction)
             {
                 Beat?.Invoke();
                 _currentBeatCounter = 0;
