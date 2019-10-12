@@ -143,8 +143,11 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Penalize()
     {
-        GameEngine.Instance.LoseAmmo();
-        GameEngine.Instance.DoScreenFlash();
+        if (GameEngine.Instance.Ammo > 0)
+        {
+            GameEngine.Instance.LoseAmmo();
+            GameEngine.Instance.DoScreenFlash();
+        }
     }
 
     private void ShootProjectile()
