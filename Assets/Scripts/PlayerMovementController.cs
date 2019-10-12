@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovementController : MovingObject
@@ -10,10 +11,14 @@ public class PlayerMovementController : MovingObject
     private bool _actedOnBeat;
     private CameraShakeEffect _cameraShaker = new CameraShakeEffect();
 
+    [SerializeField] private TextMeshProUGUI _overheadText;
+
     //Animations
     private bool _isJumping = false;
     private Animator _animator;
     private int spriteIndex = 0;
+    private int beatsWithoutMovement = 0;
+    private bool facingRight = true;
 
     private MoveType _lastMovement;
 
@@ -27,6 +32,7 @@ public class PlayerMovementController : MovingObject
         base.Start();
         GameEngine.Instance.AmmoChanged += OnAmmoChange;
         GameEngine.Instance.SetPlayerRespawn(transform.position);
+        _overheadText.gameObject.SetActive(false);
     }
 
     protected void Update()
@@ -144,12 +150,31 @@ public class PlayerMovementController : MovingObject
         }
 
         //movement:
-        if (!_actedOnBeat)
+        if (!_actedOnBeat){
+            beatsWithoutMovement++;
+
+            //check for swallowage
+            if (GameEngine.Instance.Ammo > 0)
+            {
+                if (!_overheadText.gameObject.activeInHierarchy)
+                    _overheadText.gameObject.SetActive(true);
+                _overheadText.text = $"{5 - beatsWithoutMovement}";
+                
+                if (beatsWithoutMovement >= 5)
+                {
+                    Penalize();
+                    _animator.SetTrigger("Swallow");
+                    _overheadText.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
         {
-            Penalize();
+            beatsWithoutMovement = 0;
+            _overheadText.gameObject.SetActive(false);
         }
 
-        CoyoteFrames();
+        StartCoroutine(CoyoteFrames());
 
         _actedOnBeat = false;
     }
@@ -162,13 +187,8 @@ public class PlayerMovementController : MovingObject
 
     private void Penalize(bool swallow = true)
     {
-        if (GameEngine.Instance.Ammo > 0)
-        {
+        if (GameEngine.Instance.Ammo > 0){
             GameEngine.Instance.LoseAmmo();
-            if (swallow)
-            {
-                _animator.SetTrigger("Swallow");
-            }
         }
     }
 
