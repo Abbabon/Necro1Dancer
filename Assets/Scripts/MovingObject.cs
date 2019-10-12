@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
     [SerializeField] private Transform _graphicsTransform;
+    protected Coroutine _coyoteCoroutine;
     protected bool _facingRight = true;
 
     protected virtual void Start()
@@ -24,16 +25,9 @@ public abstract class MovingObject : MonoBehaviour
         var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + MakeStep(move));
 
         var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
-        if (other == null || other.gameObject == gameObject)
-        {
-            StartCoroutine(MoveCoroutine(futureCell, true));
-            return null;
-        }
-        else
-        {
-            StartCoroutine(MoveCoroutine(futureCell, false));
-            return other;
-        }
+        var shouldMove = other == null || other.gameObject == gameObject || other.isTrigger;
+        StartCoroutine(MoveCoroutine(futureCell, shouldMove));
+        return other;
     }
 
     private Vector3Int MakeStep(MoveType stepDir)
@@ -81,6 +75,7 @@ public abstract class MovingObject : MonoBehaviour
             yield return null;
         }
         AfterMove();
+        _coyoteCoroutine = null;
     }
 
     protected virtual void AfterMove() { }

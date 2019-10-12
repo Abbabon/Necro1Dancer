@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -19,7 +19,6 @@ public class PlayerMovementController : MovingObject
     private int spriteIndex = 0;
     private int beatsWithoutMovement = 0;
     private bool facingRight = true;
-    private Coroutine _coyoteCoroutine;
 
     private MoveType _lastMovement;
 
@@ -72,7 +71,10 @@ public class PlayerMovementController : MovingObject
             if (!CanMoveInDirection(move))
                 return;
 
-            StopCoroutine(_coyoteCoroutine);
+            if (_coyoteCoroutine != null)
+            {
+                StopCoroutine(_coyoteCoroutine);
+            }
             var hitOther = TryMove(move);
             if (hitOther == null)
             {
