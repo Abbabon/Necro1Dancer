@@ -7,14 +7,12 @@ public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField] Projectile _projectilePrefab;
 
-    private Transform _transform;
+    [SerializeField] private Transform _graphicsTransform;
     private bool _movedOnBeat;
     protected Vector3Int _myPosition;
     private CameraShakeEffect _cameraShaker;
     
     //Animations
-    [SerializeField] private Sprite[] _idleSpriteSprites;
-    private SpriteRenderer _spriteRenderer;
     private bool _isJumping = false;
     private Animator _animator;
     private int spriteIndex = 0;
@@ -24,8 +22,6 @@ public class PlayerMovementController : MonoBehaviour
 
     protected void Awake()
     {
-        _transform = GetComponent<Transform>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
@@ -118,7 +114,7 @@ public class PlayerMovementController : MonoBehaviour
     private void Flip()
     {
         facingRight = !facingRight;
-        _transform.localScale = new Vector3(_transform.localScale.x * -1, _transform.localScale.y, _transform.localScale.z);
+        _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
     }
 
     //'Reset' movement for this beat
