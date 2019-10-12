@@ -10,6 +10,6 @@ public class HeartLine : MonoBehaviour
     {
         float tweenTime = GameEngine.Instance.BeatFraction * 4;
         LeanTween.moveX(gameObject, Destination.position.x, tweenTime);
-        LeanTween.scaleY(gameObject, 1f, tweenTime+0.1f).setOnComplete(() => Destroy(gameObject));
+        LeanTween.scaleY(gameObject, 0.7f, tweenTime+0.1f).setOnComplete(() => Destroy(gameObject));
     }
 }
