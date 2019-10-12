@@ -13,7 +13,7 @@ public class GameEngine : MonoBehaviour
     public Action Beat;
     private float _timeSinceLevelLoadOnStart;
     private int _previousBeat;
-    
+
     // Gameplay-related
     private int _health;
     public Action<int> HealthChanged;
@@ -23,11 +23,12 @@ public class GameEngine : MonoBehaviour
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
-    
+
     [Button]
     public void LoseHealth()
     {
-        StartCoroutine(_screenFlash.Flash(_redFlashOfDoom));
+        DoScreenFlash();
+
         _health--;
         HealthChanged?.Invoke(_health);
 
@@ -47,10 +48,13 @@ public class GameEngine : MonoBehaviour
     [Button]
     public void LoseAmmo()
     {
-        _ammo--;
-        AmmoChanged?.Invoke(_ammo);
+        if (_ammo > 0)
+        {
+            _ammo--;
+            AmmoChanged?.Invoke(_ammo);
+        }
     }
-    
+
     //TODO: Sound Manager 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
@@ -67,7 +71,7 @@ public class GameEngine : MonoBehaviour
 
     private float _bpm = 115f;
     private float _beatFraction;
-    public float BeatFraction { get { return _beatFraction; }}
+    public float BeatFraction { get { return _beatFraction; } }
 
     // Tiles
     [SerializeField] Tilemap _tilemap;
@@ -98,10 +102,10 @@ public class GameEngine : MonoBehaviour
     {
         _health = 3;
         HealthChanged?.Invoke(_health);
-        
+
         _ammo = 0;
         AmmoChanged?.Invoke(_ammo);
-        
+
         _sessionNumberOfBeats = 0;
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
     }
@@ -121,10 +125,9 @@ public class GameEngine : MonoBehaviour
     {
         if (_gameRunning)
         {
-
             var _timeSinceLevelLoad = Time.timeSinceLevelLoad - _timeSinceLevelLoadOnStart;
             int frameBeat = (int)(_timeSinceLevelLoad / _beatFraction);
-            
+
             if (frameBeat > _previousBeat)
             {
                 Beat?.Invoke();
@@ -138,10 +141,10 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_menuCanvasGroup, false);
         ChangeCanvasGroupState(_retryCanvasGroup, false);
         ChangeCanvasGroupState(_hudCanvasGroup, true);
-        
+
         _audioSource.Stop();
         _audioSource.Play();
-        
+
         _gameRunning = true;
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
@@ -152,15 +155,20 @@ public class GameEngine : MonoBehaviour
         //TODO: retry without scene loading
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
+
     public void StopGame()
     {
         //TODO: anything related to high scores and retry screen wassach go in
-        
+
         ChangeCanvasGroupState(_menuCanvasGroup, false);
         ChangeCanvasGroupState(_retryCanvasGroup, true);
-        ChangeCanvasGroupState(_hudCanvasGroup, false);;
+        ChangeCanvasGroupState(_hudCanvasGroup, false);
         _gameRunning = false;
+    }
+
+    public void DoScreenFlash()
+    {
+        StartCoroutine(_screenFlash.Flash(_redFlashOfDoom));
     }
 
     private void ChangeCanvasGroupState(CanvasGroup canvasGroup, bool state)

@@ -28,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     protected void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
+        GameEngine.Instance.AmmoChanged += OnAmmoChange;
     }
 
     protected void Update()
@@ -38,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
     //TODO: support more control methods 
     private void HandleInput()
     {
-        if (GameEngine.Instance.GameRunning)
+        if (GameEngine.Instance != null && GameEngine.Instance.GameRunning)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow)){
                 MoveTile(1);
@@ -79,6 +80,9 @@ public class PlayerMovementController : MonoBehaviour
                 {
                     enemy.KillEnemy();
                     GameEngine.Instance.GainAmmo();
+                    //yes, spelling is hawrde
+                    _animator.SetTrigger("Swallow");
+                    
                 }
                 else 
                 {
@@ -105,7 +109,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else // dont move if moved on beat, penalize player
         {
-            
+            Penalize();
         }
     }
 
@@ -124,8 +128,9 @@ public class PlayerMovementController : MonoBehaviour
         }
         
         //movement:
-        if (!_actedOnBeat){
-            //penalize player
+        if (!_actedOnBeat)
+        {
+            Penalize();
         }
 
         _actedOnBeat = false;
@@ -136,15 +141,30 @@ public class PlayerMovementController : MonoBehaviour
         _isJumping = false;
     }
 
+    private void Penalize()
+    {
+        if (GameEngine.Instance.Ammo > 0)
+        {
+            GameEngine.Instance.LoseAmmo();
+            GameEngine.Instance.DoScreenFlash();
+        }
+    }
+
     private void ShootProjectile()
     {
         if (!_actedOnBeat)
         {
-            
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
             projectile.Direction = _lastMovedDirection;
             _animator.SetTrigger("Spit");
             _actedOnBeat = true;
         }
     }
+    
+    private void OnAmmoChange(int ammo)
+    {
+        _animator.SetBool("HasAmmo", ammo > 0);
+    }
+    
+    
 }

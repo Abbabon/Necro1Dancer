@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3595095722467130985}
   - component: {fileID: -5841608710047337178}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ac02bddb807cc4a9faa491397966c908, type: 3}
-  m_Color: {r: 0, g: 0.4811321, b: 0.22898427, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b58bced731c56034a8933696c8f74a81, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCollectable: 0
   _moveSet: 03000000000000000200000001000000
+  _beatsToLive: 0
 --- !u!61 &-5841608710047337178
 BoxCollider2D:
   m_ObjectHideFlags: 0
