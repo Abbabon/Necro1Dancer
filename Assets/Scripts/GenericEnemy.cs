@@ -2,13 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GenericEnemy : MovingObject
 {
+    [FormerlySerializedAs("IsCollectable")]
+    [SerializeField] bool _isCollectable;
+    public bool IsCollectable { get { return _isCollectable; } }
+    [SerializeField] List<MoveType> _moveSet;
     [SerializeField] int _beatsToLive;
 
     public Action OnDeathEvent;
 
+    private int _moveIndex = 0;
     private int _beatsAlive;
 
     protected override void OnBeat()
@@ -19,37 +25,15 @@ public class GenericEnemy : MovingObject
             return;
         }
         
-        MoveType stepDir = _moveSet[_moveIndex];
-        Vector3Int step = MakeStep(stepDir);
-        var tilemap = GameEngine.Instance.Tilemap;
-        Vector3 future = tilemap.CellToWorld(_myPosition + step);
-        Collider2D other = Physics2D.OverlapCircle(new Vector2(future.x + 0.5f, future.y + 0.5f), 0.1f);
-        if (other == null || other.gameObject == gameObject)
+        var hitOther = TryMove(_moveSet[_moveIndex]);
+        if (hitOther == null)
         {
-            transform.Translate(future - tilemap.CellToWorld(_myPosition));
-            _myPosition += step;
             _moveIndex = ++_moveIndex % _moveSet.Count;
         }
-        else if (other.CompareTag("Player"))
+        else if (hitOther.CompareTag("Player"))
         {
             GameEngine.Instance.LoseHealth();
         }
-    }
-
-    private Vector3Int MakeStep(MoveType stepDir)
-    {
-        switch (stepDir)
-        {
-            case (MoveType.Down):
-                return new Vector3Int(0, -1, 0);
-            case (MoveType.Left):
-                return new Vector3Int(-1, 0, 0);
-            case (MoveType.Right):
-                return new Vector3Int(1, 0, 0);
-            case (MoveType.Up):
-                return new Vector3Int(0, 1, 0);
-        }
-        return Vector3Int.zero;
     }
 
     protected void Update()
