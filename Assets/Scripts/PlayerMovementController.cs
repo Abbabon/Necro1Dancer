@@ -76,22 +76,26 @@ public class PlayerMovementController : MovingObject
                 StopCoroutine(_coyoteCoroutine);
             }
             var hitOther = TryMove(move);
-            if (hitOther == null)
+            if (hitOther == null || hitOther.isTrigger)
             {
+                if (hitOther != null)
+                {
+                    if (hitOther.CompareTag("Respawn"))
+                    {
+                        GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
+                    }
+                    else if (hitOther.CompareTag("Crown"))
+                    {
+                        GameEngine.Instance.WonGame();
+                    }
+                }
+
                 //play animation:
                 _animator.SetTrigger("Jump");
                 _isJumping = true;
             }
             else
             {
-                if (hitOther.CompareTag("Respawn"))
-                {
-                    GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
-                }else if (hitOther.CompareTag("Crown"))
-                {
-                    GameEngine.Instance.WonGame();
-                }
-
                 var enemy = hitOther.GetComponent<GenericEnemy>();
                 if (enemy != null)
                 {
