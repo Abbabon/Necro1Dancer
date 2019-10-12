@@ -22,14 +22,14 @@ public class Projectile : MovingObject
     protected override void OnBeat()
     {
         var hitOther = TryMove(_direction);
-        if (hitOther != null && !hitOther.CompareTag("Respawn"))
+        if (hitOther != null && !hitOther.CompareTag("Respawn") && hitOther.GetComponent<Projectile>() == null)
         {
             var enemy = hitOther.GetComponent<GenericEnemy>();
             if (enemy != null)
             {
                 enemy.KillEnemy();
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
 }

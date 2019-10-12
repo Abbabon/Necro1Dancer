@@ -13,8 +13,9 @@ public class GameEngine : MonoBehaviour
     public Action Beat;
     private float _timeSinceLevelLoadOnStart;
     private int _previousBeat;
-
     public int Beats { get { return _previousBeat; } }
+    [SerializeField] private int _beatsForLevel;
+    public int BeatsForLevel => _beatsForLevel;
 
     // Gameplay-related
     private int _health;
@@ -134,6 +135,12 @@ public class GameEngine : MonoBehaviour
 
         _sessionNumberOfBeats++;
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
+
+        if (_sessionNumberOfBeats >= _beatsForLevel)
+        {
+            //TODO: special treatment for timer end
+            StopGame();
+        }
     }
 
     private void Update()
