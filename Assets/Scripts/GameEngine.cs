@@ -23,6 +23,7 @@ public class GameEngine : MonoBehaviour
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
+    private Vector2 _checkpoint;
 
     [Button]
     public void LoseHealth()
@@ -96,6 +97,17 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_menuCanvasGroup, true);
         ChangeCanvasGroupState(_retryCanvasGroup, false);
         ChangeCanvasGroupState(_hudCanvasGroup, false);
+    }
+
+    public void SetPlayerRespawn(Vector2 position)
+    {
+        _checkpoint = position;
+    }
+
+    public Vector2 PlayerDrown()
+    {
+        LoseHealth();
+        return _checkpoint;
     }
 
     private void InitializeSession()
