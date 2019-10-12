@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _graphics;
+    [SerializeField] private Transform _graphicsTransform;
     protected bool _facingRight = true;
 
     protected virtual void Start()
@@ -87,7 +87,7 @@ public abstract class MovingObject : MonoBehaviour
 
     protected void Flip()
     {
-        _graphics.flipX = _facingRight;
+        _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
         _facingRight = !_facingRight;
     }
 }

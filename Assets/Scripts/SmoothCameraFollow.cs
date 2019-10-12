@@ -8,6 +8,7 @@ public class SmoothCameraFollow : MonoBehaviour
 	[SerializeField] float _followLerp;
 
 	private Vector3 _posOffset;
+	private float _zOffset;
 
 	private Transform _transform;
 
@@ -18,12 +19,13 @@ public class SmoothCameraFollow : MonoBehaviour
 
 	protected void Start()
 	{
-		_posOffset = _transform.position - _followTarget.position;
+		_zOffset = _transform.position.z;
 	}
 
 	protected void LateUpdate()
 	{
-		var newFollowPosition = _followTarget.position + _posOffset;
+		var newFollowPosition = _followTarget.position;
+		newFollowPosition.z = _zOffset;
 
 		var newPosition = Vector3.Lerp(_transform.position, newFollowPosition, _followLerp);
 		_transform.position = newPosition;
