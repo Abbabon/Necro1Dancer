@@ -30,7 +30,7 @@ public class GenericEnemy : MovingObject
             _myPosition += step;
             _moveIndex = ++_moveIndex % _moveSet.Count;
         }
-        else
+        else if (other.CompareTag("Player"))
         {
             GameEngine.Instance.LoseHealth();
         }
