@@ -67,5 +67,8 @@ public abstract class MovingObject : MonoBehaviour
         }
 
         transform.position = successful ? endPos : startPos;
+        AfterMove();
     }
+
+    protected virtual void AfterMove() { }
 }

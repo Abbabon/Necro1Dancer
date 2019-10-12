@@ -118,6 +118,11 @@ public class PlayerMovementController : MovingObject
         }
     }
 
+    protected override void AfterMove()
+    {
+        HandleDrowning();
+    }
+
     public void HandleDrowning()
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
@@ -152,6 +157,7 @@ public class PlayerMovementController : MovingObject
         //movement:
         if (!_actedOnBeat)
         {
+            HandleDrowning();
             Penalize();
         }
 
