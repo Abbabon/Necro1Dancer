@@ -75,7 +75,7 @@ public abstract class MovingObject : MonoBehaviour
 
     protected IEnumerator CoyoteFrames()
     {
-        float graceTime = GameEngine.Instance.BeatFraction / 2;
+        float graceTime = GameEngine.Instance.BeatFraction / 3.5f;
         for (float time = 0; time < graceTime; time += Time.deltaTime)
         {
             yield return null;

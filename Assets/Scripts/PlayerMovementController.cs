@@ -19,7 +19,7 @@ public class PlayerMovementController : MovingObject
     private int spriteIndex = 0;
     private int beatsWithoutMovement = 0;
     private bool facingRight = true;
-    private bool _isDrowning = false;
+    private Coroutine _coyoteCoroutine;
 
     private MoveType _lastMovement;
 
@@ -67,11 +67,12 @@ public class PlayerMovementController : MovingObject
 
     private void MoveTile(MoveType move)
     {
-        if (!_actedOnBeat && !_isDrowning)
+        if (!_actedOnBeat)
         {
             if (!CanMoveInDirection(move))
                 return;
-            
+
+            StopCoroutine(_coyoteCoroutine);
             var hitOther = TryMove(move);
             if (hitOther == null)
             {
@@ -129,7 +130,6 @@ public class PlayerMovementController : MovingObject
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
         if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt")))
         {
-            _isDrowning = true;
             _animator.SetTrigger("Drown");
             transform.position = GameEngine.Instance.PlayerDrown();
         }
@@ -175,9 +175,8 @@ public class PlayerMovementController : MovingObject
             _overheadText.gameObject.SetActive(false);
         }
 
-        StartCoroutine(CoyoteFrames());
-
-        _isDrowning = false;
+        _coyoteCoroutine = StartCoroutine(CoyoteFrames());
+        
         _actedOnBeat = false;
     }
 
