@@ -249,21 +249,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4103333670446823149, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: _showText
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3425161412595742902, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3425161412595742902, guid: 189228cf131144356b84fd42a4451ab2,
-        type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189228cf131144356b84fd42a4451ab2, type: 3}
 --- !u!225 &1517256082 stripped
@@ -419,6 +404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
         type: 3}
+      propertyPath: _redFlashOfDoom
+      value: 
+      objectReference: {fileID: 1517256082}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
       propertyPath: _menuCanvasGroup
       value: 
       objectReference: {fileID: 1928334691}
@@ -437,11 +427,6 @@ PrefabInstance:
       propertyPath: _tilemap
       value: 
       objectReference: {fileID: 1748740810}
-    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
-        type: 3}
-      propertyPath: _redFlashOfDoom
-      value: 
-      objectReference: {fileID: 1517256082}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
 --- !u!1001 &1448192134961621013

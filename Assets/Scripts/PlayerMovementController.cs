@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : MovingObject
 {
     [SerializeField] Projectile _projectilePrefab;
 
@@ -16,17 +16,17 @@ public class PlayerMovementController : MonoBehaviour
     private Animator _animator;
     private int spriteIndex = 0;
     private bool facingRight = true;
-    
-    private int _lastMovedDirection;
+
+    private MoveType _lastMovement;
 
     protected void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    protected void Start()
+    protected override void Start()
     {
-        GameEngine.Instance.Beat += OnBeat;
+        base.Start();
         GameEngine.Instance.AmmoChanged += OnAmmoChange;
         GameEngine.Instance.SetPlayerRespawn(transform.position);
     }
@@ -36,15 +36,18 @@ public class PlayerMovementController : MonoBehaviour
         HandleInput();
     }
 
-    //TODO: support more control methods 
+    // TODO: support more control methods 
     private void HandleInput()
     {
         if (GameEngine.Instance != null && GameEngine.Instance.GameRunning)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow)){
-                MoveTile(1);
-            }else if (Input.GetKeyDown(KeyCode.LeftArrow)){
-                MoveTile(-1);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                MoveTile(MoveType.Right);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                MoveTile(MoveType.Left);
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -57,57 +60,53 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private void MoveTile(int vectorFactor)
+    private void MoveTile(MoveType move)
     {
         if (!_actedOnBeat)
         {
-            Vector3Int step = Vector3Int.right * vectorFactor;
-            var tilemap = GameEngine.Instance.Tilemap;
-            var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + step);
-            
-            var futurePos = new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f);
-            var other = Physics2D.OverlapCircle(futurePos, 0.1f);
-            
-            var enemy = other?.GetComponent<GenericEnemy>();            
-            if (enemy == null)
+            var hitOther = TryMove(move);
+            if (hitOther != null)
             {
-                transform.position = futureCell;
-                if (other.CompareTag("Respawn"))
+                if (hitOther.CompareTag("Respawn"))
                 {
-                    GameEngine.Instance.SetPlayerRespawn(other.transform.position);
+                    GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
                 }
-            }
-            else
-            {
-                StartCoroutine(_cameraShaker.shake());
-                if (enemy.IsCollectable)
-                {
-                    enemy.KillEnemy();
-                    GameEngine.Instance.GainAmmo();
-                    //yes, spelling is hawrde
-                    _animator.SetTrigger("Spit");
-                }
-                else 
-                {
-                    GameEngine.Instance.LoseHealth();
-                }
-            }
                 
-            _lastMovedDirection = vectorFactor;
-            
-            if (vectorFactor > 0 && !facingRight)
+                var enemy = hitOther.GetComponent<GenericEnemy>();
+                if (enemy == null)
+                {
+                    //play animation:
+                    _animator.SetTrigger("Jump");
+                    _isJumping = true;
+                }
+                else
+                {
+                    if (enemy.IsCollectable)
+                    {
+                        enemy.KillEnemy();
+                        GameEngine.Instance.GainAmmo();
+                        //yes, spelling is hawrde
+                        _animator.SetTrigger("Spit");
+                    }
+                    else
+                    {
+                        StartCoroutine(_cameraShaker.shake());
+                        GameEngine.Instance.LoseHealth();
+                    }
+                }
+            }
+
+            _lastMovement = move;
+
+            if (_lastMovement == MoveType.Right && !facingRight)
             {
                 Flip();
             }
-            else if (vectorFactor < 0 && facingRight)
+            else if (_lastMovement == MoveType.Left && facingRight)
             {
                 Flip();
             }
-            
-            //play animation:
-            _animator.SetTrigger("Jump");
-            _isJumping = true;
-            
+
             _actedOnBeat = true;
         }
         else // dont move if moved on beat, penalize player
@@ -133,13 +132,14 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     //'Reset' movement for this beat
-    private void OnBeat()
+    protected override void OnBeat()
     {
         //animation:
-        if (!_isJumping){
+        if (!_isJumping)
+        {
             _animator.SetTrigger("Breath");
         }
-        
+
         //movement:
         if (!_actedOnBeat)
         {
@@ -148,9 +148,10 @@ public class PlayerMovementController : MonoBehaviour
 
         _actedOnBeat = false;
     }
-    
+
     //animation events
-    public void DoneJumping(){
+    public void DoneJumping()
+    {
         _isJumping = false;
     }
 
@@ -161,7 +162,9 @@ public class PlayerMovementController : MonoBehaviour
             GameEngine.Instance.LoseAmmo();
             GameEngine.Instance.DoScreenFlash();
             if (swallow)
+            {
                 _animator.SetTrigger("Swallow");
+            }
         }
     }
 
@@ -169,21 +172,17 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (!_actedOnBeat)
         {
-            var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
-            projectile.Direction = _lastMovedDirection;
+            var lastMoveDirection = _lastMovement == MoveType.Right ? 1 : -1;
+            var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
+            projectile.Direction = _lastMovement;
             _actedOnBeat = true;
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("TRIGGGEREEEEDD!");
     }
 
     private void OnAmmoChange(int ammo)
     {
         _animator.SetBool("HasAmmo", ammo > 0);
     }
-    
-    
+
+
 }

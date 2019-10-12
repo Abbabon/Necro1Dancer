@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioTestClip: {fileID: 8300000, guid: d29c0e233686d434e8786999f5861c4c, type: 3}
   TestBeat: 0
+  _redFlashOfDoom: {fileID: 0}
   _menuCanvasGroup: {fileID: 0}
   _retryCanvasGroup: {fileID: 0}
   _hudCanvasGroup: {fileID: 0}
