@@ -64,6 +64,9 @@ public class PlayerMovementController : MovingObject
     {
         if (!_actedOnBeat)
         {
+            if (!CanMoveInDirection(move))
+                return;
+            
             var hitOther = TryMove(move);
             if (hitOther == null)
             {
@@ -129,6 +132,12 @@ public class PlayerMovementController : MovingObject
             transform.position = GameEngine.Instance.PlayerDrown();
         }
     }
+    
+    public bool CanMoveInDirection(MoveType move)
+    {
+        var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(1 * (move == MoveType.Right ? 1 : -1), -1, 0));
+        return floor != null;
+    }
 
     private void Flip()
     {
@@ -182,6 +191,7 @@ public class PlayerMovementController : MovingObject
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
             projectile.Direction = _lastMovement;
             _actedOnBeat = true;
+            _animator.SetTrigger("Spit");
         }
     }
 
