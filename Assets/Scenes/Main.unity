@@ -268,11 +268,67 @@ PrefabInstance:
       propertyPath: _showOpposite
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9198421252426729035, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198421252426729035, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198421252426729035, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198421252426729035, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198421252426729035, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733881725251419276, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733881725251419276, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733881725251419276, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733881725251419276, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733881725251419276, guid: 189228cf131144356b84fd42a4451ab2,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189228cf131144356b84fd42a4451ab2, type: 3}
 --- !u!225 &1517256082 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 3425161412595742902, guid: 189228cf131144356b84fd42a4451ab2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517256081}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1517256083 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 300962665732447619, guid: 189228cf131144356b84fd42a4451ab2,
     type: 3}
   m_PrefabInstance: {fileID: 1517256081}
   m_PrefabAsset: {fileID: 0}
@@ -446,6 +502,11 @@ PrefabInstance:
       propertyPath: _tilemap
       value: 
       objectReference: {fileID: 1748740810}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: _winningCanvasGroup
+      value: 
+      objectReference: {fileID: 1517256083}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
 --- !u!1001 &1448192134961621013

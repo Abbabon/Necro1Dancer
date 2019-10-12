@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -89,7 +89,7 @@ public class PlayerMovementController : MovingObject
                     GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
                 }else if (hitOther.CompareTag("Crown"))
                 {
-                    GameEngine.Instance.StopGame();
+                    GameEngine.Instance.WonGame();
                 }
 
                 var enemy = hitOther.GetComponent<GenericEnemy>();

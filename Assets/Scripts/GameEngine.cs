@@ -7,6 +7,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
+public enum GameSessionState
+{
+    Menu,
+    Playing,
+    Lose,
+    Win,
+}
+
 public class GameEngine : MonoBehaviour
 {
     // Beat-related
@@ -36,9 +44,8 @@ public class GameEngine : MonoBehaviour
         _health--;
         HealthChanged?.Invoke(_health);
 
-        if (_health <= 0)
-        {
-            StopGame();
+        if (_health <= 0){
+            LostGame();
         }
     }
 
@@ -69,10 +76,11 @@ public class GameEngine : MonoBehaviour
 
     [SerializeField] private CanvasGroup _redFlashOfDoom;
     [SerializeField] private CanvasGroup _menuCanvasGroup;
+    [SerializeField] private CanvasGroup _winningCanvasGroup;
     [SerializeField] private CanvasGroup _retryCanvasGroup;
     [SerializeField] private CanvasGroup _hudCanvasGroup;
-    private bool _gameRunning = false;
-    public bool GameRunning { get { return _gameRunning; } }
+    private GameSessionState _gameState = GameSessionState.Menu;
+    public bool GameRunning { get { return _gameState == GameSessionState.Playing; } }
 
     private float _bpm = 115f;
     private float _beatFraction;
@@ -96,11 +104,8 @@ public class GameEngine : MonoBehaviour
         Beat += OnBeat;
     }
 
-    private void Start()
-    {
-        ChangeCanvasGroupState(_menuCanvasGroup, true);
-        ChangeCanvasGroupState(_retryCanvasGroup, false);
-        ChangeCanvasGroupState(_hudCanvasGroup, false);
+    private void Start(){
+        ChangeGameState(GameSessionState.Menu);
     }
 
     public void SetPlayerRespawn(Vector2 position)
@@ -139,13 +144,13 @@ public class GameEngine : MonoBehaviour
         if (_sessionNumberOfBeats >= _beatsForLevel)
         {
             //TODO: special treatment for timer end
-            StopGame();
+            LostGame(true);
         }
     }
 
     private void Update()
     {
-        if (_gameRunning)
+        if (GameRunning)
         {
             var _timeSinceLevelLoad = Time.timeSinceLevelLoad - _timeSinceLevelLoadOnStart;
             int frameBeat = (int)(_timeSinceLevelLoad / _beatFraction);
@@ -158,20 +163,44 @@ public class GameEngine : MonoBehaviour
                 
             }
         }
+        else //menues, right now its quite redundent but habit forces me to create this
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                switch (_gameState)
+                {
+                    case GameSessionState.Menu:
+                        StartGame();
+                        break;
+                    case GameSessionState.Win:
+                    case GameSessionState.Lose:
+                        RestartScene();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     public void StartGame()
     {
-        ChangeCanvasGroupState(_menuCanvasGroup, false);
-        ChangeCanvasGroupState(_retryCanvasGroup, false);
-        ChangeCanvasGroupState(_hudCanvasGroup, true);
-
+        ChangeGameState(GameSessionState.Playing);
         _audioSource.Stop();
         _audioSource.Play();
 
-        _gameRunning = true;
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
+    }
+
+    private void ChangeGameState(GameSessionState gameSessionState)
+    {
+        _gameState = gameSessionState;
+
+        ChangeCanvasGroupState(_menuCanvasGroup, (gameSessionState == GameSessionState.Menu));
+        ChangeCanvasGroupState(_retryCanvasGroup, (gameSessionState == GameSessionState.Win));
+        ChangeCanvasGroupState(_winningCanvasGroup, (gameSessionState == GameSessionState.Lose));
+        ChangeCanvasGroupState(_hudCanvasGroup, (gameSessionState == GameSessionState.Playing));
     }
 
     public void RestartScene()
@@ -180,18 +209,17 @@ public class GameEngine : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void StopGame()
+    public void WonGame()
     {
-        //TODO: anything related to high scores and retry screen wassach go in
-
-        ChangeCanvasGroupState(_menuCanvasGroup, false);
-        ChangeCanvasGroupState(_retryCanvasGroup, true);
-        ChangeCanvasGroupState(_hudCanvasGroup, false);
-
+        ChangeGameState(GameSessionState.Win);
+        
         _audioSource.clip = _winFanfare;
         _audioSource.Play();
-
-        _gameRunning = false;
+    }
+    
+    public void LostGame(bool dueToTime = false)
+    {
+        ChangeGameState(GameSessionState.Lose);
     }
 
     public void DoScreenFlash()
