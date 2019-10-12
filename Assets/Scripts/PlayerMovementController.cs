@@ -7,14 +7,12 @@ public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField] Projectile _projectilePrefab;
 
-    private Transform _transform;
-    private bool _movedOnBeat;
+    [SerializeField] private Transform _graphicsTransform;
+    private bool _actedOnBeat;
     protected Vector3Int _myPosition;
     private CameraShakeEffect _cameraShaker;
     
     //Animations
-    [SerializeField] private Sprite[] _idleSpriteSprites;
-    private SpriteRenderer _spriteRenderer;
     private bool _isJumping = false;
     private Animator _animator;
     private int spriteIndex = 0;
@@ -24,8 +22,6 @@ public class PlayerMovementController : MonoBehaviour
 
     protected void Awake()
     {
-        _transform = GetComponent<Transform>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
@@ -50,21 +46,20 @@ public class PlayerMovementController : MonoBehaviour
             }else if (Input.GetKeyDown(KeyCode.LeftArrow)){
                 MoveTile(-1);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (GameEngine.Instance.Ammo > 0)
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
-                ShootProjectile();
-                GameEngine.Instance.LoseAmmo();
+                if (GameEngine.Instance.Ammo > 0)
+                {
+                    ShootProjectile();
+                    GameEngine.Instance.LoseAmmo();
+                }
             }
         }
     }
 
     private void MoveTile(int vectorFactor)
     {
-        if (!_movedOnBeat)
+        if (!_actedOnBeat)
         {
             Vector3Int step = Vector3Int.right * vectorFactor;
             var tilemap = GameEngine.Instance.Tilemap;
@@ -107,7 +102,7 @@ public class PlayerMovementController : MonoBehaviour
             _animator.SetTrigger("Jump");
             _isJumping = true;
             
-            _movedOnBeat = true;
+            _actedOnBeat = true;
         }
         else // dont move if moved on beat, penalize player
         {
@@ -118,7 +113,7 @@ public class PlayerMovementController : MonoBehaviour
     private void Flip()
     {
         facingRight = !facingRight;
-        _transform.localScale = new Vector3(_transform.localScale.x * -1, _transform.localScale.y, _transform.localScale.z);
+        _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
     }
 
     //'Reset' movement for this beat
@@ -130,11 +125,11 @@ public class PlayerMovementController : MonoBehaviour
         }
         
         //movement:
-        if (!_movedOnBeat){
+        if (!_actedOnBeat){
             //penalize player
         }
 
-        _movedOnBeat = false;
+        _actedOnBeat = false;
     }
     
     //animation events
@@ -144,7 +139,13 @@ public class PlayerMovementController : MonoBehaviour
 
     private void ShootProjectile()
     {
-        var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
-        projectile.Direction = _lastMovedDirection;
+        if (!_actedOnBeat)
+        {
+            
+            var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
+            projectile.Direction = _lastMovedDirection;
+            _animator.SetTrigger("Spit");
+            _actedOnBeat = true;
+        }
     }
 }
