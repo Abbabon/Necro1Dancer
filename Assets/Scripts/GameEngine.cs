@@ -22,10 +22,12 @@ public class GameEngine : MonoBehaviour
     public Action<int> AmmoChanged;
     private int _sessionNumberOfBeats;
     public Action<int> BeatsChanged;
+    private ScreenFlash _screenFlash = new ScreenFlash();
     
     [Button]
     public void LoseHealth()
     {
+        _screenFlash.Flash();
         _health--;
         HealthChanged?.Invoke(_health);
 
@@ -57,10 +59,10 @@ public class GameEngine : MonoBehaviour
     // Session-State related
 
     [SerializeField] private CanvasGroup _redFlashOfDoom;
-    public CanvasGroup redFlashOfDoom { get { return _redFlashOfDoom;  } }
     [SerializeField] private CanvasGroup _menuCanvasGroup;
     [SerializeField] private CanvasGroup _retryCanvasGroup;
     [SerializeField] private CanvasGroup _hudCanvasGroup;
+    public CanvasGroup redFlashOfDoom { get { return _redFlashOfDoom; } }
     private bool _gameRunning = false;
     public bool GameRunning { get { return _gameRunning; } }
 
@@ -109,7 +111,6 @@ public class GameEngine : MonoBehaviour
     {
         if (TestBeat)
         {
-            //Debug.Log("Boop");
             _audioSource.PlayOneShot(_audioTestClip);
         }
 
