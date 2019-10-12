@@ -115,16 +115,14 @@ public class PlayerMovementController : MovingObject
         }
     }
 
-    private bool HandleDrowning()
+    public void HandleDrowning()
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
         if (floor.name.Equals("water") || floor.name.Equals("water_alt"))
         {
             _animator.SetTrigger("Drown");
             transform.position = GameEngine.Instance.PlayerDrown();
-            return true;
         }
-        return false;
     }
 
     private void Flip()
@@ -136,8 +134,6 @@ public class PlayerMovementController : MovingObject
     //'Reset' movement for this beat
     protected override void OnBeat()
     {
-        HandleDrowning();
-
         //animation:
         if (!_isJumping)
         {
