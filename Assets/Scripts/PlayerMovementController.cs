@@ -148,9 +148,10 @@ public class PlayerMovementController : MovingObject
         //movement:
         if (!_actedOnBeat)
         {
-            HandleDrowning();
             Penalize();
         }
+
+        CoyoteFrames();
 
         _actedOnBeat = false;
     }
@@ -188,6 +189,4 @@ public class PlayerMovementController : MovingObject
     {
         _animator.SetBool("HasAmmo", ammo > 0);
     }
-
-
 }
