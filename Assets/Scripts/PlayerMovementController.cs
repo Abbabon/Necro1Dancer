@@ -38,7 +38,7 @@ public class PlayerMovementController : MonoBehaviour
     //TODO: support more control methods 
     private void HandleInput()
     {
-        if (GameEngine.Instance.GameRunning)
+        if (GameEngine.Instance != null && GameEngine.Instance.GameRunning)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow)){
                 MoveTile(1);
