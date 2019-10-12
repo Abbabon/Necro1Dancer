@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: water_botton
+  m_Name: water_lily_submerge_alt
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 38d03bddd71501a4ca53f83a9dc46daa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c4843076cc67f848ad1f818f5a05dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
