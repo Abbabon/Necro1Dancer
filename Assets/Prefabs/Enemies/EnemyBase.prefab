@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315085983888866277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6331759982230080815}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3595095722467130985}
   - component: {fileID: -5841608710047337178}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6082121050861430039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3089024491695492439}
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0b6b077f4d485a8b98214cb487482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Prefabs/Enemies/Enemy.prefab
   _graphicsTransform: {fileID: 0}
   _bodyTranform: {fileID: 0}
   _isCollectable: 0
@@ -132,6 +133,15 @@ MonoBehaviour:
   _moveSet: 03000000000000000200000001000000
   _animationSprites: []
   _spriteRenderer: {fileID: 0}
+=======
+  _graphicsTransform: {fileID: 3089024491695492439}
+  _bodyTranform: {fileID: 3089024491695492439}
+  _isCollectable: 0
+  _facingRightOnStart: 0
+  _moveSet: 04000000
+  _animationSprites: []
+  _spriteRenderer: {fileID: 3162390408632655532}
+>>>>>>> 5fc5b13a1f66dbb4f994851922e475e5416badd9:Assets/Prefabs/Enemies/EnemyBase.prefab
   _beatsToLive: 0
 --- !u!61 &-5841608710047337178
 BoxCollider2D:
@@ -146,7 +156,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 0.5}
+  m_Offset: {x: 0.5, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
