@@ -2028,12 +2028,32 @@ PrefabInstance:
     - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
       propertyPath: _moveSet.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
       propertyPath: _moveSet.Array.data[0]
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _facingRightOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[1]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0befe16be17d54438cbe25850568ade, type: 3}

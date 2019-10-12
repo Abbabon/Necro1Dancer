@@ -8,6 +8,7 @@ public class GenericEnemy : MovingObject
 {
     [FormerlySerializedAs("IsCollectable")]
     [SerializeField] bool _isCollectable;
+    [SerializeField] bool _facingRightOnStart = true;
     public bool IsCollectable { get { return _isCollectable; } }
     [SerializeField] List<MoveType> _moveSet;
     
@@ -26,6 +27,7 @@ public class GenericEnemy : MovingObject
         _spriteRenderer = GetComponent<SpriteRenderer>();
         if (_spriteRenderer == null)
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _facingRight = _facingRightOnStart;
     }
 
     protected override void OnBeat()
