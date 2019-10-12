@@ -85,8 +85,7 @@ public class PlayerMovementController : MonoBehaviour
                     enemy.KillEnemy();
                     GameEngine.Instance.GainAmmo();
                     //yes, spelling is hawrde
-                    _animator.SetTrigger("Swallow");
-                    
+                    _animator.SetTrigger("Spit");
                 }
                 else 
                 {
@@ -159,12 +158,14 @@ public class PlayerMovementController : MonoBehaviour
         _isJumping = false;
     }
 
-    private void Penalize()
+    private void Penalize(bool swallow = true)
     {
         if (GameEngine.Instance.Ammo > 0)
         {
             GameEngine.Instance.LoseAmmo();
             GameEngine.Instance.DoScreenFlash();
+            if (swallow)
+                _animator.SetTrigger("Swallow");
         }
     }
 
@@ -174,7 +175,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
             projectile.Direction = _lastMovedDirection;
-            _animator.SetTrigger("Spit");
             _actedOnBeat = true;
         }
     }

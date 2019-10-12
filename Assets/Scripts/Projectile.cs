@@ -17,6 +17,11 @@ public class Projectile : MonoBehaviour
     {
         GameEngine.Instance.Beat += MoveTile;
     }
+    
+    protected void OnDestroy()
+    {
+        GameEngine.Instance.Beat -= MoveTile;
+    }
 
     private void MoveTile()
     {
@@ -36,6 +41,7 @@ public class Projectile : MonoBehaviour
         else
         {
             enemy.KillEnemy();
+            Destroy(gameObject);
         }
     }
 }
