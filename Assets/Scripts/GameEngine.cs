@@ -14,6 +14,8 @@ public class GameEngine : MonoBehaviour
     private float _timeSinceLevelLoadOnStart;
     private int _previousBeat;
 
+    public int Beats { get { return _previousBeat; } }
+
     // Gameplay-related
     private int _health;
     public Action<int> HealthChanged;
@@ -24,7 +26,6 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
-    [SerializeField] GameObject _player;
 
     [Button]
     public void LoseHealth()
@@ -107,9 +108,7 @@ public class GameEngine : MonoBehaviour
 
     public Vector2 PlayerDrown()
     {
-        //LoseHealth();
-
-        DoScreenFlash();
+        LoseHealth();
         return _checkpoint;
     }
 
@@ -145,9 +144,10 @@ public class GameEngine : MonoBehaviour
 
             if (frameBeat > _previousBeat)
             {
-                Beat?.Invoke();
-                _player.GetComponent<PlayerMovementController>()?.HandleDrowning();
                 _previousBeat = frameBeat;
+                Beat?.Invoke();
+                //_player.HandleDrowning();
+                
             }
         }
     }

@@ -10,6 +10,10 @@ public class GenericEnemy : MovingObject
     [SerializeField] bool _isCollectable;
     public bool IsCollectable { get { return _isCollectable; } }
     [SerializeField] List<MoveType> _moveSet;
+    
+    private int _spriteIndex = 0;
+    [SerializeField] List<Sprite> _animationSprites;
+    [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] int _beatsToLive;
 
     public Action OnDeathEvent;
@@ -17,13 +21,24 @@ public class GenericEnemy : MovingObject
     private int _moveIndex = 0;
     private int _beatsAlive;
 
+    protected void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
     protected override void OnBeat()
     {
-        if (_beatsToLive > 0 && ++_beatsAlive > _beatsToLive)
-        {
+        if (_beatsToLive > 0 && ++_beatsAlive > _beatsToLive){
             KillEnemy();
             return;
         }
+
+        if (_spriteRenderer != null &&_animationSprites.Count > 0){
+            _spriteIndex = (_spriteIndex+1)%_animationSprites.Count;
+            _spriteRenderer.sprite = _animationSprites[_spriteIndex];
+        } //TODO: else - update animator, for the more complext enemies like the fish
         
         var hitOther = TryMove(_moveSet[_moveIndex]);
         if (hitOther == null)
@@ -46,7 +61,7 @@ public class GenericEnemy : MovingObject
 
     public void KillEnemy()
     {
-            OnDeathEvent?.Invoke();
-            Destroy(gameObject);
+        OnDeathEvent?.Invoke();
+        Destroy(gameObject);
     }
 }
