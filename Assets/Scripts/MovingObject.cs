@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
     [SerializeField] private Transform _graphicsTransform;
+    [SerializeField] private Transform _bodyTranform;
     protected Coroutine _coyoteCoroutine;
     protected bool _facingRight = true;
 
@@ -50,7 +51,12 @@ public abstract class MovingObject : MonoBehaviour
     private IEnumerator MoveCoroutine(Vector3 endPos, bool successful)
     {
         var moveTime = GameEngine.Instance.BeatFraction / 3f;
+        var startBodyPos = _bodyTranform.position;
         var startPos = transform.position;
+        var endBodyPos = endPos + startBodyPos - startPos;
+        transform.position = endPos;
+        _bodyTranform.position = startBodyPos;
+
 
         for (float time = 0; time < moveTime; time += Time.deltaTime)
         {
@@ -59,10 +65,11 @@ public abstract class MovingObject : MonoBehaviour
             {
                 t = 1 - t;
             }
-            transform.position = Vector3.Lerp(startPos, endPos, t);
+            _bodyTranform.position = Vector3.Lerp(startBodyPos, endBodyPos, t);
             yield return null;
         }
 
+        _bodyTranform.position = successful ? endBodyPos : startBodyPos;
         transform.position = successful ? endPos : startPos;
         AfterMove();
     }
