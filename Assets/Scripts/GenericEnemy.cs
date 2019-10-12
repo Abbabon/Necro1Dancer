@@ -15,12 +15,16 @@ public class GenericEnemy : MovingObject
     private int _spriteIndex = 0;
     [SerializeField] List<Sprite> _animationSprites;
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] Animator _animator;
     [SerializeField] int _beatsToLive;
 
     public Action OnDeathEvent;
 
     private int _moveIndex = 0;
     private int _beatsAlive;
+    
+    [SerializeField] private bool _turnIntoLillypad;
+    private bool _turningIntoLillypad = false; 
 
     protected void Awake()
     {
@@ -28,6 +32,7 @@ public class GenericEnemy : MovingObject
         if (_spriteRenderer == null)
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _facingRight = _facingRightOnStart;
+        _animator = GetComponent<Animator>();
     }
 
     protected override void OnBeat()
@@ -40,8 +45,11 @@ public class GenericEnemy : MovingObject
         if (_spriteRenderer != null &&_animationSprites.Count > 0){
             _spriteIndex = (_spriteIndex+1)%_animationSprites.Count;
             _spriteRenderer.sprite = _animationSprites[_spriteIndex];
-        } //TODO: else - update animator, for the more complext enemies like the fish
-        
+        }else if (_animator != null)
+        {
+            _animator.SetTrigger("Beat");
+        }
+
         var hitOther = TryMove(_moveSet[_moveIndex]);
         if (hitOther == null || hitOther.gameObject == gameObject)
         {
@@ -49,7 +57,7 @@ public class GenericEnemy : MovingObject
         }
         else if (hitOther.CompareTag("Player"))
         {
-            GameEngine.Instance.LoseHealth();
+            hitOther.transform.position = GameEngine.Instance.TakeDamage();
         }
     }
 
@@ -63,7 +71,27 @@ public class GenericEnemy : MovingObject
 
     public void KillEnemy()
     {
+        //start the chain of events that turn this enemy into a lilypad
+        if (_turnIntoLillypad)
+        {
+            _turningIntoLillypad = true;
+            _animator.SetBool("LillypadChain", true);
+        }
+        else
+        {
+            DestroySelf();
+        }
+    }
+
+    private void DestroySelf()
+    {
         OnDeathEvent?.Invoke();
         Destroy(gameObject);
+    }
+    
+    //called as an animation event
+    public void TurnToLillypad()
+    {
+        DestroySelf();
     }
 }
