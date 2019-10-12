@@ -27,7 +27,8 @@ public class GameEngine : MonoBehaviour
     [Button]
     public void LoseHealth()
     {
-        StartCoroutine(_screenFlash.Flash(_redFlashOfDoom));
+        DoScreenFlash();
+
         _health--;
         HealthChanged?.Invoke(_health);
 
@@ -47,8 +48,11 @@ public class GameEngine : MonoBehaviour
     [Button]
     public void LoseAmmo()
     {
-        _ammo--;
-        AmmoChanged?.Invoke(_ammo);
+        if (_ammo > 0)
+        {
+            _ammo--;
+            AmmoChanged?.Invoke(_ammo);
+        }
     }
 
     //TODO: Sound Manager 
@@ -160,6 +164,11 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_retryCanvasGroup, true);
         ChangeCanvasGroupState(_hudCanvasGroup, false);
         _gameRunning = false;
+    }
+
+    public void DoScreenFlash()
+    {
+        StartCoroutine(_screenFlash.Flash(_redFlashOfDoom));
     }
 
     private void ChangeCanvasGroupState(CanvasGroup canvasGroup, bool state)
