@@ -3,6 +3,9 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _graphics;
+    protected bool _facingRight = true;
+
     protected virtual void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
@@ -81,4 +84,10 @@ public abstract class MovingObject : MonoBehaviour
     }
 
     protected virtual void AfterMove() { }
+
+    protected void Flip()
+    {
+        _graphics.flipX = _facingRight;
+        _facingRight = !_facingRight;
+    }
 }
