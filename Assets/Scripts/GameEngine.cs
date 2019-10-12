@@ -31,7 +31,7 @@ public class GameEngine : MonoBehaviour
     {
         DoScreenFlash();
 
-        _health--;
+        //_health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0)
@@ -107,9 +107,7 @@ public class GameEngine : MonoBehaviour
 
     public Vector2 PlayerDrown()
     {
-        //LoseHealth();
-
-        DoScreenFlash();
+        LoseHealth();
         return _checkpoint;
     }
 
