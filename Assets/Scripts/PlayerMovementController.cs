@@ -9,7 +9,6 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField] private Transform _graphicsTransform;
     private bool _actedOnBeat;
-    protected Vector3Int _myPosition;
     private CameraShakeEffect _cameraShaker = new CameraShakeEffect();
 
     //Animations
@@ -29,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         GameEngine.Instance.Beat += OnBeat;
         GameEngine.Instance.AmmoChanged += OnAmmoChange;
+        GameEngine.Instance.SetPlayerRespawn(transform.position);
     }
 
     protected void Update()
@@ -72,6 +72,10 @@ public class PlayerMovementController : MonoBehaviour
             if (enemy == null)
             {
                 transform.position = futureCell;
+                if (other.CompareTag("Respawn"))
+                {
+                    GameEngine.Instance.SetPlayerRespawn(other.transform.position);
+                }
             }
             else
             {
@@ -112,6 +116,18 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    private bool HandleDrowning()
+    {
+        var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
+        if (floor.name.Equals("water") || floor.name.Equals("water_alt"))
+        {
+            _animator.SetTrigger("Drown");
+            transform.position = GameEngine.Instance.PlayerDrown();
+            return true;
+        }
+        return false;
+    }
+
     private void Flip()
     {
         facingRight = !facingRight;
@@ -121,6 +137,8 @@ public class PlayerMovementController : MonoBehaviour
     //'Reset' movement for this beat
     private void OnBeat()
     {
+        HandleDrowning();
+
         //animation:
         if (!_isJumping){
             _animator.SetTrigger("Breath");
@@ -160,7 +178,12 @@ public class PlayerMovementController : MonoBehaviour
             _actedOnBeat = true;
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("TRIGGGEREEEEDD!");
+    }
+
     private void OnAmmoChange(int ammo)
     {
         _animator.SetBool("HasAmmo", ammo > 0);
