@@ -101,8 +101,8 @@ public class PlayerMovementController : MonoBehaviour
             }
             
             //play animation:
-            _isJumping = true;
             _animator.SetTrigger("Jump");
+            _isJumping = true;
             
             _movedOnBeat = true;
         }
@@ -122,16 +122,12 @@ public class PlayerMovementController : MonoBehaviour
     private void OnBeat()
     {
         //animation:
-        if (!_isJumping)
-        {
-//            Debug.Log("Static");
-//            spriteIndex = (spriteIndex+1)%_idleSpriteSprites.Length;
-//            _spriteRenderer.sprite = _idleSpriteSprites[spriteIndex];
+        if (!_isJumping){
+            _animator.SetTrigger("Breath");
         }
         
         //movement:
-        if (!_movedOnBeat)
-        {
+        if (!_movedOnBeat){
             //penalize player
         }
 
@@ -139,8 +135,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     
     //animation events
-    public void DoneJumping()
-    {
+    public void DoneJumping(){
         _isJumping = false;
     }
 
