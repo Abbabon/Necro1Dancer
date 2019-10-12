@@ -28,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     protected void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
+        GameEngine.Instance.AmmoChanged += OnAmmoChange;
     }
 
     protected void Update()
@@ -149,6 +150,20 @@ public class PlayerMovementController : MonoBehaviour
             _animator.SetTrigger("Spit");
             _actedOnBeat = true;
         }
+    }
+    
+    private void OnAmmoChange(int ammo)
+    {
+        _animator.SetBool("HasAmmo", ammo > 0);
+        
+//        if (ammo > 0 && !LeanTween.isTweening(gameObject))
+//        {
+//            LeanTween.scale(gameObject, Vector3.one * 1.1f, 0.5f).setLoopPingPong();
+//        }
+//        else
+//        {
+//            LeanTween.cancelAll();
+//        }
     }
     
     
