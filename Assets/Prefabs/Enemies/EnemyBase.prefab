@@ -125,15 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0b6b077f4d485a8b98214cb487482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/Enemies/Enemy.prefab
-  _graphicsTransform: {fileID: 0}
-  _bodyTranform: {fileID: 0}
-  _isCollectable: 0
-  _facingRightOnStart: 0
-  _moveSet: 03000000000000000200000001000000
-  _animationSprites: []
-  _spriteRenderer: {fileID: 0}
-=======
   _graphicsTransform: {fileID: 3089024491695492439}
   _bodyTranform: {fileID: 3089024491695492439}
   _isCollectable: 0
@@ -141,7 +132,6 @@ MonoBehaviour:
   _moveSet: 04000000
   _animationSprites: []
   _spriteRenderer: {fileID: 3162390408632655532}
->>>>>>> 5fc5b13a1f66dbb4f994851922e475e5416badd9:Assets/Prefabs/Enemies/EnemyBase.prefab
   _beatsToLive: 0
 --- !u!61 &-5841608710047337178
 BoxCollider2D:

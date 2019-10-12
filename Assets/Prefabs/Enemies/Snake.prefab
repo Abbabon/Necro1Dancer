@@ -81,20 +81,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD:Assets/Prefabs/Enemies/EnemyFish.prefab
-    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
-        type: 3}
-      propertyPath: _turnIntoLillypad
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3162390408632655532, guid: d0befe16be17d54438cbe25850568ade,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b58bced731c56034a8933696c8f74a81,
-=======
     - target: {fileID: 6082121050861430039, guid: d0befe16be17d54438cbe25850568ade,
->>>>>>> 5fc5b13a1f66dbb4f994851922e475e5416badd9:Assets/Prefabs/Enemies/Snake.prefab
         type: 3}
       propertyPath: m_Name
       value: Snake
