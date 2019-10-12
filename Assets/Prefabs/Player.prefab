@@ -48,10 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf32030b5891d40b7bcd57ebdb78ea34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphics: {fileID: 8758154230158343396}
   _projectilePrefab: {fileID: 1032154713529114517, guid: 2a5662e43cdca5f4e98588a3415ca395,
     type: 3}
-  _graphicsTransform: {fileID: 8937776017631257649}
-  _overheadText: {fileID: 6137275502922813578}
 --- !u!61 &148090849906977429
 BoxCollider2D:
   m_ObjectHideFlags: 0

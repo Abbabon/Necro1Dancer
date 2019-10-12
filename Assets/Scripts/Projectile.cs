@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Projectile : MovingObject
 {
-    public MoveType Direction { get; set; }
+    private MoveType _direction;
     private Transform _transform;
 
     protected void Awake()
@@ -13,9 +13,15 @@ public class Projectile : MovingObject
         _transform = GetComponent<Transform>();
     }
 
+    public void SetDirection(MoveType direction)
+    {
+        _direction = direction;
+        if (_direction == MoveType.Left) Flip();
+    }
+
     protected override void OnBeat()
     {
-        var hitOther = TryMove(Direction);
+        var hitOther = TryMove(_direction);
         if (hitOther != null && !hitOther.CompareTag("Respawn"))
         {
             var enemy = hitOther.GetComponent<GenericEnemy>();
