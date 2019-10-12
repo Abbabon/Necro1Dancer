@@ -8,7 +8,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] Projectile _projectilePrefab;
 
     [SerializeField] private Transform _graphicsTransform;
-    private bool _movedOnBeat;
+    private bool _actedOnBeat;
     protected Vector3Int _myPosition;
     private CameraShakeEffect _cameraShaker;
     
@@ -46,21 +46,20 @@ public class PlayerMovementController : MonoBehaviour
             }else if (Input.GetKeyDown(KeyCode.LeftArrow)){
                 MoveTile(-1);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (GameEngine.Instance.Ammo > 0)
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
-                ShootProjectile();
-                GameEngine.Instance.LoseAmmo();
+                if (GameEngine.Instance.Ammo > 0)
+                {
+                    ShootProjectile();
+                    GameEngine.Instance.LoseAmmo();
+                }
             }
         }
     }
 
     private void MoveTile(int vectorFactor)
     {
-        if (!_movedOnBeat)
+        if (!_actedOnBeat)
         {
             Vector3Int step = Vector3Int.right * vectorFactor;
             var tilemap = GameEngine.Instance.Tilemap;
@@ -103,7 +102,7 @@ public class PlayerMovementController : MonoBehaviour
             _animator.SetTrigger("Jump");
             _isJumping = true;
             
-            _movedOnBeat = true;
+            _actedOnBeat = true;
         }
         else // dont move if moved on beat, penalize player
         {
@@ -126,11 +125,11 @@ public class PlayerMovementController : MonoBehaviour
         }
         
         //movement:
-        if (!_movedOnBeat){
+        if (!_actedOnBeat){
             //penalize player
         }
 
-        _movedOnBeat = false;
+        _actedOnBeat = false;
     }
     
     //animation events
@@ -140,7 +139,13 @@ public class PlayerMovementController : MonoBehaviour
 
     private void ShootProjectile()
     {
-        var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
-        projectile.Direction = _lastMovedDirection;
+        if (!_actedOnBeat)
+        {
+            
+            var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
+            projectile.Direction = _lastMovedDirection;
+            _animator.SetTrigger("Spit");
+            _actedOnBeat = true;
+        }
     }
 }
