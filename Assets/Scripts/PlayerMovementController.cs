@@ -109,7 +109,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else // dont move if moved on beat, penalize player
         {
-            
+            Penalize();
         }
     }
 
@@ -128,8 +128,9 @@ public class PlayerMovementController : MonoBehaviour
         }
         
         //movement:
-        if (!_actedOnBeat){
-            //penalize player
+        if (!_actedOnBeat)
+        {
+            Penalize();
         }
 
         _actedOnBeat = false;
@@ -140,11 +141,16 @@ public class PlayerMovementController : MonoBehaviour
         _isJumping = false;
     }
 
+    private void Penalize()
+    {
+        GameEngine.Instance.LoseAmmo();
+        GameEngine.Instance.DoScreenFlash();
+    }
+
     private void ShootProjectile()
     {
         if (!_actedOnBeat)
         {
-            
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * _lastMovedDirection, Quaternion.identity);
             projectile.Direction = _lastMovedDirection;
             _animator.SetTrigger("Spit");

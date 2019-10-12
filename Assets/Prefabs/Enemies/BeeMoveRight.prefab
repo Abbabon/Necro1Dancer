@@ -97,5 +97,10 @@ PrefabInstance:
       propertyPath: _moveSet.Array.data[2]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2552472202752725754, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97b646eec5c4ff1468e62229c2a237e8, type: 3}
