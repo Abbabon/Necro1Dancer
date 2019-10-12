@@ -49,7 +49,7 @@ public class GenericEnemy : MovingObject
         }
         else if (hitOther.CompareTag("Player"))
         {
-            GameEngine.Instance.LoseHealth();
+            hitOther.transform.position = GameEngine.Instance.TakeDamage();
         }
     }
 

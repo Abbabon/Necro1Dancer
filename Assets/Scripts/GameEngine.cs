@@ -26,8 +26,6 @@ public class GameEngine : MonoBehaviour
     public int BeatsForLevel => _beatsForLevel;
 
     // Gameplay-related
-    private int _health;
-    public Action<int> HealthChanged;
     private int _ammo;
     public int Ammo { get { return _ammo; } }
     public Action<int> AmmoChanged;
@@ -35,19 +33,6 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
-
-    [Button]
-    public void LoseHealth()
-    {
-        DoScreenFlash();
-
-        // _health--;
-        HealthChanged?.Invoke(_health);
-
-        if (_health <= 0){
-            LostGame();
-        }
-    }
 
     [Button]
     public void GainAmmo()
@@ -119,16 +104,14 @@ public class GameEngine : MonoBehaviour
         _checkpoint = position;
     }
 
-    public Vector2 PlayerDrown()
+    public Vector2 TakeDamage()
     {
-        LoseHealth();
+        DoScreenFlash();
         return _checkpoint;
     }
 
     private void InitializeSession()
     {
-        _health = 3;
-        HealthChanged?.Invoke(_health);
 
         _ammo = 0;
         AmmoChanged?.Invoke(_ammo);
