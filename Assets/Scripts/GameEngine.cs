@@ -107,7 +107,9 @@ public class GameEngine : MonoBehaviour
 
     public Vector2 PlayerDrown()
     {
-        LoseHealth();
+        //LoseHealth();
+
+        DoScreenFlash();
         return _checkpoint;
     }
 

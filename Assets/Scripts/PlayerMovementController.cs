@@ -121,7 +121,7 @@ public class PlayerMovementController : MovingObject
         if (floor.name.Equals("water") || floor.name.Equals("water_alt"))
         {
             _animator.SetTrigger("Drown");
-            transform.position = GameEngine.Instance.PlayerDrown();
+            GameEngine.Instance.PlayerDrown(); //transform.position = GameEngine.Instance.PlayerDrown();
         }
     }
 
