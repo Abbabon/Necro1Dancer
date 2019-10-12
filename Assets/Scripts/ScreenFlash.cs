@@ -20,6 +20,6 @@ public class ScreenFlash
             flashLayer.alpha -= alphaIncrement;
             yield return new WaitForSeconds(0.01f);
         }
-    yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
     }
 }
