@@ -257,6 +257,12 @@ CanvasGroup:
     type: 3}
   m_PrefabInstance: {fileID: 1517256081}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1677343347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1448192134333673840, guid: a8c5cb40b151ae1429f5547d6854f9fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1448192134961621013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1839735485 &1748740810 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 1748740810, guid: a8c5cb40b151ae1429f5547d6854f9fa,
@@ -427,6 +433,11 @@ PrefabInstance:
       propertyPath: _tilemap
       value: 
       objectReference: {fileID: 1748740810}
+    - target: {fileID: 266941548234544228, guid: 1e06d95b75b3c4d52ae73c04d7cac14e,
+        type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1677343347}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e06d95b75b3c4d52ae73c04d7cac14e, type: 3}
 --- !u!1001 &1448192134961621013
