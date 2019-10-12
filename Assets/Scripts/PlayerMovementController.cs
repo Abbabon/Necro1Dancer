@@ -65,21 +65,21 @@ public class PlayerMovementController : MovingObject
         if (!_actedOnBeat)
         {
             var hitOther = TryMove(move);
-            if (hitOther != null)
+            if (hitOther == null)
+            {
+                //play animation:
+                _animator.SetTrigger("Jump");
+                _isJumping = true;
+            }
+            else
             {
                 if (hitOther.CompareTag("Respawn"))
                 {
                     GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
                 }
-                
+
                 var enemy = hitOther.GetComponent<GenericEnemy>();
-                if (enemy == null)
-                {
-                    //play animation:
-                    _animator.SetTrigger("Jump");
-                    _isJumping = true;
-                }
-                else
+                if (enemy != null)
                 {
                     if (enemy.IsCollectable)
                     {
