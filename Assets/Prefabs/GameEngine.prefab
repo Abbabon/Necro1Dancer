@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioTestClip: {fileID: 8300000, guid: d29c0e233686d434e8786999f5861c4c, type: 3}
   TestBeat: 0
-  _bpm: 115
+  _menuCanvasGroup: {fileID: 0}
+  _retryCanvasGroup: {fileID: 0}
+  _hudCanvasGroup: {fileID: 0}
   _tilemap: {fileID: 0}
 --- !u!82 &266941548234544234
 AudioSource:
@@ -58,11 +60,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3a8daa4dbf4f20e4980f6e799e67aed3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
