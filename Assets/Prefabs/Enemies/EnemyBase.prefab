@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _graphicsTransform: {fileID: 3089024491695492439}
+  _bodyTranform: {fileID: 3089024491695492439}
   _isCollectable: 0
   _facingRightOnStart: 0
   _moveSet: 04000000

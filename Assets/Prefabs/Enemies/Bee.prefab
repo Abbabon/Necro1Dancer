@@ -71,7 +71,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0b6b077f4d485a8b98214cb487482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphicsTransform: {fileID: 5864692643913032710}
+  _bodyTranform: {fileID: 5864692643913032710}
   _isCollectable: 1
+  _facingRightOnStart: 0
   _moveSet: 
   _animationSprites:
   - {fileID: 21300000, guid: 8a527dfe7331d7b47abe19499d7450fc, type: 3}
