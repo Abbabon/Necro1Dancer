@@ -26,6 +26,8 @@ public class GameEngine : MonoBehaviour
     public int BeatsForLevel => _beatsForLevel;
 
     // Gameplay-related
+    private int _health;
+    public Action<int> HealthChanged;
     private int _ammo;
     public int Ammo { get { return _ammo; } }
     public Action<int> AmmoChanged;
@@ -33,6 +35,19 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
+
+    [Button]
+    public void LoseHealth()
+    {
+        DoScreenFlash();
+
+        _health--;
+        HealthChanged?.Invoke(_health);
+
+        if (_health <= 0){
+            PlayerDie();
+        }
+    }
 
     [Button]
     public void GainAmmo()
@@ -78,6 +93,9 @@ public class GameEngine : MonoBehaviour
     [SerializeField] Tilemap _tilemap;
     public Tilemap Tilemap { get { return _tilemap; } }
 
+    // Player
+    [SerializeField] PlayerMovementController _player;
+
     // Singleton
     private static GameEngine _instance;
     public static GameEngine Instance { get { return _instance; } }
@@ -99,25 +117,33 @@ public class GameEngine : MonoBehaviour
         ChangeGameState(GameSessionState.Menu);
     }
 
-    public void SetPlayerRespawn(Vector2 position)
+    public void SetPlayerCheckpoint(Vector2 position)
     {
         _checkpoint = position;
     }
 
-    public Vector2 TakeDamage()
+    public void PlayerDie()
     {
-        DoScreenFlash();
-        return _checkpoint;
+        ResetHealthAndAmmo();
+
+        _player.ResetToCheckpoint(_checkpoint);
     }
 
     private void InitializeSession()
     {
-
-        _ammo = 0;
-        AmmoChanged?.Invoke(_ammo);
+        ResetHealthAndAmmo();
 
         _sessionNumberOfBeats = 0;
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
+    }
+
+    private void ResetHealthAndAmmo()
+    {
+        _health = 3;
+        HealthChanged?.Invoke(_health);
+
+        _ammo = 0;
+        AmmoChanged?.Invoke(_ammo);
     }
 
     private void OnBeat()
@@ -132,8 +158,7 @@ public class GameEngine : MonoBehaviour
 
         if (_sessionNumberOfBeats >= _beatsForLevel)
         {
-            //TODO: special treatment for timer end
-            LostGame(true);
+            LostGame();
         }
     }
 
@@ -148,7 +173,6 @@ public class GameEngine : MonoBehaviour
             {
                 _previousBeat = frameBeat;
                 Beat?.Invoke();
-                //_player.HandleDrowning();
                 
             }
         }
@@ -208,7 +232,7 @@ public class GameEngine : MonoBehaviour
         _audioSource.Play();
     }
     
-    public void LostGame(bool dueToTime = false)
+    public void LostGame()
     {
         ChangeGameState(GameSessionState.Lose);
     }
