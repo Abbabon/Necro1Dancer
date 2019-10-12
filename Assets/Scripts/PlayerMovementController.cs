@@ -84,6 +84,9 @@ public class PlayerMovementController : MovingObject
                 if (hitOther.CompareTag("Respawn"))
                 {
                     GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
+                }else if (hitOther.CompareTag("Crown"))
+                {
+                    GameEngine.Instance.StopGame();
                 }
 
                 var enemy = hitOther.GetComponent<GenericEnemy>();
