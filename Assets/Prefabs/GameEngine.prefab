@@ -46,10 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _beatsForLevel: 400
   _audioTestClip: {fileID: 8300000, guid: d29c0e233686d434e8786999f5861c4c, type: 3}
+  _menuMusic: {fileID: 8300000, guid: 189924ecaeb42194baf7367f0c652f34, type: 3}
+  _startSound: {fileID: 8300000, guid: 1a8b46c0899cd5e4398384ca9cbfd037, type: 3}
+  _inGameMusic: {fileID: 8300000, guid: 4589eb59ed8655e459dda782979bdadb, type: 3}
   _winFanfare: {fileID: 8300000, guid: 376250b59957df94f98aefed3ebecffd, type: 3}
   TestBeat: 0
   _redFlashOfDoom: {fileID: 0}
   _menuCanvasGroup: {fileID: 0}
+  _winningCanvasGroup: {fileID: 0}
   _retryCanvasGroup: {fileID: 0}
   _hudCanvasGroup: {fileID: 0}
   _tilemap: {fileID: 0}

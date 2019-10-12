@@ -41,7 +41,7 @@ public class GameEngine : MonoBehaviour
     {
         DoScreenFlash();
 
-        _health--;
+        // _health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0){
@@ -69,6 +69,9 @@ public class GameEngine : MonoBehaviour
     //TODO: Sound Manager 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
+    [SerializeField] private AudioClip _menuMusic;
+    [SerializeField] private AudioClip _startSound;
+    [SerializeField] private AudioClip _inGameMusic;
     [SerializeField] private AudioClip _winFanfare;
     public bool TestBeat;
 
@@ -99,12 +102,15 @@ public class GameEngine : MonoBehaviour
         _instance = this;
 
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _menuMusic;
+        _audioSource.Play();
 
         _beatFraction = 60f / _bpm;
         Beat += OnBeat;
     }
 
-    private void Start(){
+    private void Start()
+    {
         ChangeGameState(GameSessionState.Menu);
     }
 
@@ -187,7 +193,9 @@ public class GameEngine : MonoBehaviour
     {
         ChangeGameState(GameSessionState.Playing);
         _audioSource.Stop();
+        _audioSource.clip = _inGameMusic;
         _audioSource.Play();
+        _audioSource.PlayOneShot(_startSound);
 
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
