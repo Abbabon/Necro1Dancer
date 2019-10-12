@@ -54,6 +54,9 @@ public class GameEngine : MonoBehaviour
     public bool TestBeat;
 
     // Session-State related
+
+    [SerializeField] private CanvasGroup _redFlashOfDoom;
+    public CanvasGroup redFlashOfDoom { get { return _redFlashOfDoom;  } }
     [SerializeField] private CanvasGroup _menuCanvasGroup;
     [SerializeField] private CanvasGroup _retryCanvasGroup;
     [SerializeField] private CanvasGroup _hudCanvasGroup;
