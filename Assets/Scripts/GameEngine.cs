@@ -124,6 +124,7 @@ public class GameEngine : MonoBehaviour
 
             if (_currentBeatCounter >= _beatFraction)
             {
+                Debug.Log(_currentBeatCounter);
                 Beat?.Invoke();
                 _currentBeatCounter = 0;
             }
