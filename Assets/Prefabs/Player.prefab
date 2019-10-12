@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 148090849906977429}
   - component: {fileID: 148090849906977428}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf32030b5891d40b7bcd57ebdb78ea34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 1032154713529114517, guid: 2a5662e43cdca5f4e98588a3415ca395,
+    type: 3}
   _idleSpriteSprites:
   - {fileID: 21300000, guid: db3d5f9889f8369499de576c76674f1f, type: 3}
   - {fileID: 21300000, guid: 5d0dc4c33a25d6f468047b8421815c2e, type: 3}
