@@ -8,7 +8,7 @@ public class GenericEnemy : MovingObject
 {
     [FormerlySerializedAs("IsCollectable")]
     [SerializeField] bool _isCollectable;
-    [SerializeField] bool _facingRightOnStart = true;
+    [SerializeField] bool _facingRightOnStart;
     public bool IsCollectable { get { return _isCollectable; } }
     [SerializeField] List<MoveType> _moveSet;
     
