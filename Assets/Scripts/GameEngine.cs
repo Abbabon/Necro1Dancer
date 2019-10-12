@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class GameEngine : MonoBehaviour
 {
     // Beat-related
     public Action Beat;
+    private float _beatEpsilon = 0.1f;
     
     // Gameplay-related
     private int _health;
@@ -25,6 +27,11 @@ public class GameEngine : MonoBehaviour
     {
         _health--;
         HealthChanged?.Invoke(_health);
+
+        if (_health <= 0)
+        {
+            StopGame();
+        }
     }
 
     [Button]
@@ -110,12 +117,12 @@ public class GameEngine : MonoBehaviour
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_gameRunning){
             _currentBeatCounter += Time.deltaTime;
 
-            if (_currentBeatCounter > _beatFraction)
+            if (_currentBeatCounter >= _beatFraction)
             {
                 Beat?.Invoke();
                 _currentBeatCounter = 0;
@@ -134,6 +141,12 @@ public class GameEngine : MonoBehaviour
         
         _gameRunning = true;
         InitializeSession();
+    }
+
+    public void RestartScene()
+    {
+        //TODO: retry without scene loading
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     public void StopGame()

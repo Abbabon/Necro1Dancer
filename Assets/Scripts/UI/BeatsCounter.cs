@@ -7,6 +7,7 @@ using UnityEngine;
 public class BeatsCounter : MonoBehaviour
 {
     private TextMeshProUGUI _beatsText;
+    [SerializeField] private bool _showText = false;
 
     private void Awake(){
         _beatsText = GetComponent<TextMeshProUGUI>();
@@ -17,6 +18,6 @@ public class BeatsCounter : MonoBehaviour
     }
 
     private void OnBeatChanged(int beats){
-        _beatsText.text = $"{beats}";
+        _beatsText.text = _showText ? $"You did it with {beats} beats!" : $"{beats}";
     }
 }
