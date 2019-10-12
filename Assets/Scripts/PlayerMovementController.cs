@@ -140,6 +140,8 @@ public class PlayerMovementController : MovingObject
         if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt") || floor.name.Equals("water_no_swap")))
         {
             _animator.SetTrigger("Drown");
+            GameEngine.Instance.DoScreenFlash();
+            GameEngine.Instance.PlayerDie();
         }
     }
 
