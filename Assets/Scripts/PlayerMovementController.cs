@@ -174,7 +174,7 @@ public class PlayerMovementController : MovingObject
             _overheadText.gameObject.SetActive(false);
         }
 
-        CoyoteFrames();
+        StartCoroutine(CoyoteFrames());
 
         _actedOnBeat = false;
     }
