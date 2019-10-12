@@ -31,7 +31,7 @@ public class PlayerMovementController : MovingObject
     {
         base.Start();
         GameEngine.Instance.AmmoChanged += OnAmmoChange;
-        GameEngine.Instance.SetPlayerRespawn(transform.position);
+        GameEngine.Instance.SetPlayerCheckpoint(transform.position);
         _overheadText.gameObject.SetActive(false);
     }
 
@@ -82,7 +82,7 @@ public class PlayerMovementController : MovingObject
                 {
                     if (hitOther.CompareTag("Respawn"))
                     {
-                        GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
+                        GameEngine.Instance.SetPlayerCheckpoint(hitOther.transform.position);
                     }
                     else if (hitOther.CompareTag("Crown"))
                     {
@@ -109,7 +109,7 @@ public class PlayerMovementController : MovingObject
                     else
                     {
                         StartCoroutine(_cameraShaker.shake());
-                        transform.position = GameEngine.Instance.TakeDamage();
+                        GameEngine.Instance.LoseHealth();
                     }
                 }
             }
@@ -140,8 +140,14 @@ public class PlayerMovementController : MovingObject
         if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt") || floor.name.Equals("water_no_swap")))
         {
             _animator.SetTrigger("Drown");
-            transform.position = GameEngine.Instance.TakeDamage();
+            GameEngine.Instance.DoScreenFlash();
+            GameEngine.Instance.PlayerDie();
         }
+    }
+
+    public void ResetToCheckpoint(Vector2 position)
+    {
+        transform.position = position;
     }
     
     public bool CanMoveInDirection(MoveType move)

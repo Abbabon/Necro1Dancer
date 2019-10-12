@@ -57,6 +57,7 @@ MonoBehaviour:
   _retryCanvasGroup: {fileID: 0}
   _hudCanvasGroup: {fileID: 0}
   _tilemap: {fileID: 0}
+  _player: {fileID: 0}
 --- !u!82 &266941548234544234
 AudioSource:
   m_ObjectHideFlags: 0
