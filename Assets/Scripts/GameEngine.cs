@@ -11,7 +11,8 @@ public class GameEngine : MonoBehaviour
 {
     // Beat-related
     public Action Beat;
-    private float _beatEpsilon = 0.1f;
+    private float _timeSinceLevelLoadOnStart;
+    private int _previousBeat;
     
     // Gameplay-related
     private int _health;
@@ -66,7 +67,6 @@ public class GameEngine : MonoBehaviour
     private float _bpm = 115f;
     private float _beatFraction;
     public float BeatFraction { get { return _beatFraction; }}
-    private float _currentBeatCounter = 0f;
 
     // Tiles
     [SerializeField] Tilemap _tilemap;
@@ -119,14 +119,16 @@ public class GameEngine : MonoBehaviour
 
     private void Update()
     {
-        if (_gameRunning){
-            _currentBeatCounter += Time.deltaTime;
+        if (_gameRunning)
+        {
 
-            if (_currentBeatCounter >= _beatFraction)
+            var _timeSinceLevelLoad = Time.timeSinceLevelLoad - _timeSinceLevelLoadOnStart;
+            int frameBeat = (int)(_timeSinceLevelLoad / _beatFraction);
+            
+            if (frameBeat > _previousBeat)
             {
-                Debug.Log(_currentBeatCounter);
                 Beat?.Invoke();
-                _currentBeatCounter = 0;
+                _previousBeat = frameBeat;
             }
         }
     }
@@ -141,6 +143,7 @@ public class GameEngine : MonoBehaviour
         _audioSource.Play();
         
         _gameRunning = true;
+        _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
     }
 
