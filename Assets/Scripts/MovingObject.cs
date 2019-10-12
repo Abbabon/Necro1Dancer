@@ -69,8 +69,8 @@ public abstract class MovingObject : MonoBehaviour
             yield return null;
         }
 
-        _bodyTranform.position = successful ? endBodyPos : startBodyPos;
         transform.position = successful ? endPos : startPos;
+        _bodyTranform.position = successful ? endBodyPos : startBodyPos;
         AfterMove();
     }
 
