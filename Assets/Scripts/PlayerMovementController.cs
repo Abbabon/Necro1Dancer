@@ -28,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     protected void Start()
     {
         GameEngine.Instance.Beat += OnBeat;
+        GameEngine.Instance.AmmoChanged += OnAmmoChange;
     }
 
     protected void Update()
@@ -38,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
     //TODO: support more control methods 
     private void HandleInput()
     {
-        if (GameEngine.Instance.GameRunning)
+        if (GameEngine.Instance != null && GameEngine.Instance.GameRunning)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow)){
                 MoveTile(1);
@@ -79,6 +80,9 @@ public class PlayerMovementController : MonoBehaviour
                 {
                     enemy.KillEnemy();
                     GameEngine.Instance.GainAmmo();
+                    //yes, spelling is hawrde
+                    _animator.SetTrigger("Swallow");
+                    
                 }
                 else 
                 {
@@ -153,4 +157,11 @@ public class PlayerMovementController : MonoBehaviour
             _actedOnBeat = true;
         }
     }
+    
+    private void OnAmmoChange(int ammo)
+    {
+        _animator.SetBool("HasAmmo", ammo > 0);
+    }
+    
+    
 }

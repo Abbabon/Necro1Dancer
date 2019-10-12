@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jump
+  m_Name: Swallow
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,12 +20,14 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 657a724e745d21946a932df90ce68738, type: 3}
-    - time: 0.11666667
-      value: {fileID: 21300000, guid: e9e2eaa45ef913b4187a8fbda952a554, type: 3}
-    - time: 0.25
-      value: {fileID: 21300000, guid: db3d5f9889f8369499de576c76674f1f, type: 3}
-    - time: 0.35
+      value: {fileID: 21300000, guid: 5c2fee4ed6ba49043a54844c7b0935b3, type: 3}
+    - time: 0.1
+      value: {fileID: 21300000, guid: 768665e05ee28e24fb0b1712fd0a8e69, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: 1aa7c58055da0fa4a8f6b98a3fb47908, type: 3}
+    - time: 0.3
+      value: {fileID: 21300000, guid: c31cee2444e63474c8cd38fc08e87c6f, type: 3}
+    - time: 0.4
       value: {fileID: 21300000, guid: db3d5f9889f8369499de576c76674f1f, type: 3}
     attribute: m_Sprite
     path: Graphics
@@ -46,21 +48,22 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 657a724e745d21946a932df90ce68738, type: 3}
-    - {fileID: 21300000, guid: e9e2eaa45ef913b4187a8fbda952a554, type: 3}
-    - {fileID: 21300000, guid: db3d5f9889f8369499de576c76674f1f, type: 3}
+    - {fileID: 21300000, guid: 5c2fee4ed6ba49043a54844c7b0935b3, type: 3}
+    - {fileID: 21300000, guid: 768665e05ee28e24fb0b1712fd0a8e69, type: 3}
+    - {fileID: 21300000, guid: 1aa7c58055da0fa4a8f6b98a3fb47908, type: 3}
+    - {fileID: 21300000, guid: c31cee2444e63474c8cd38fc08e87c6f, type: 3}
     - {fileID: 21300000, guid: db3d5f9889f8369499de576c76674f1f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.36666667
+    m_StopTime: 0.4166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -74,11 +77,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.35
-    functionName: DoneJumping
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
