@@ -30,7 +30,7 @@ public class GameEngine : MonoBehaviour
     {
         DoScreenFlash();
 
-        //_health--;
+        _health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0)
