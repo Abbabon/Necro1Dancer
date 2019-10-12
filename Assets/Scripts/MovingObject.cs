@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public abstract class MovingObject : MonoBehaviour
 {
@@ -25,11 +23,12 @@ public abstract class MovingObject : MonoBehaviour
         var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
         if (other == null || other.gameObject == gameObject)
         {
-            transform.position = futureCell;
+            StartCoroutine(MoveCoroutine(futureCell, true));
             return null;
         }
         else
         {
+            StartCoroutine(MoveCoroutine(futureCell, false));
             return other;
         }
     }
@@ -49,5 +48,24 @@ public abstract class MovingObject : MonoBehaviour
             default:
                 return Vector3Int.zero;
         }
+    }
+
+    private IEnumerator MoveCoroutine(Vector3 endPos, bool successful)
+    {
+        var moveTime = GameEngine.Instance.BeatFraction / 3f;
+        var startPos = transform.position;
+
+        for (float time = 0; time < moveTime; time += Time.deltaTime)
+        {
+            var t = time / moveTime;
+            if (t > 0.5f && !successful)
+            {
+                t = 1 - t;
+            }
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        transform.position = successful ? endPos : startPos;
     }
 }
