@@ -79,6 +79,9 @@ public class PlayerMovementController : MonoBehaviour
                 {
                     enemy.KillEnemy();
                     GameEngine.Instance.GainAmmo();
+                    //yes, spelling is hawrde
+                    _animator.SetTrigger("Swallow");
+                    
                 }
                 else 
                 {
@@ -147,4 +150,6 @@ public class PlayerMovementController : MonoBehaviour
             _actedOnBeat = true;
         }
     }
+    
+    
 }
