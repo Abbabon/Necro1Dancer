@@ -61,6 +61,7 @@ public class GameEngine : MonoBehaviour
     //TODO: Sound Manager 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
+    [SerializeField] private AudioClip _winFanfare;
     public bool TestBeat;
 
     // Session-State related
@@ -179,6 +180,10 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_menuCanvasGroup, false);
         ChangeCanvasGroupState(_retryCanvasGroup, true);
         ChangeCanvasGroupState(_hudCanvasGroup, false);
+
+        _audioSource.clip = _winFanfare;
+        _audioSource.Play();
+
         _gameRunning = false;
     }
 
