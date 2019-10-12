@@ -160,7 +160,7 @@ public class PlayerMovementController : MovingObject
             Penalize();
         }
 
-        CoyoteFrames();
+        StartCoroutine(CoyoteFrames());
 
         _actedOnBeat = false;
     }
