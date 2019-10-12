@@ -7,7 +7,6 @@ public class PlayerMovementController : MovingObject
 {
     [SerializeField] Projectile _projectilePrefab;
 
-    [SerializeField] private Transform _graphicsTransform;
     private bool _actedOnBeat;
     private CameraShakeEffect _cameraShaker = new CameraShakeEffect();
 
@@ -15,7 +14,6 @@ public class PlayerMovementController : MovingObject
     private bool _isJumping = false;
     private Animator _animator;
     private int spriteIndex = 0;
-    private bool facingRight = true;
 
     private MoveType _lastMovement;
 
@@ -101,20 +99,16 @@ public class PlayerMovementController : MovingObject
 
             _lastMovement = move;
 
-            if (_lastMovement == MoveType.Right && !facingRight)
+            if (_lastMovement == MoveType.Right && !_facingRight)
             {
                 Flip();
             }
-            else if (_lastMovement == MoveType.Left && facingRight)
+            else if (_lastMovement == MoveType.Left && _facingRight)
             {
                 Flip();
             }
 
             _actedOnBeat = true;
-        }
-        else // dont move if moved on beat, penalize player
-        {
-            Penalize();
         }
     }
 
@@ -128,6 +122,7 @@ public class PlayerMovementController : MovingObject
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
         if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt")))
         {
+            Debug.Log("Drowning");
             _animator.SetTrigger("Drown");
             transform.position = GameEngine.Instance.PlayerDrown();
         }
@@ -137,12 +132,6 @@ public class PlayerMovementController : MovingObject
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(1 * (move == MoveType.Right ? 1 : -1), -1, 0));
         return floor != null;
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
     }
 
     //'Reset' movement for this beat
@@ -189,7 +178,7 @@ public class PlayerMovementController : MovingObject
         {
             var lastMoveDirection = _lastMovement == MoveType.Right ? 1 : -1;
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
-            projectile.Direction = _lastMovement;
+            projectile.SetDirection(_lastMovement);
             _actedOnBeat = true;
             _animator.SetTrigger("Spit");
         }
