@@ -8,6 +8,7 @@ public class GenericEnemy : MovingObject
 {
     [FormerlySerializedAs("IsCollectable")]
     [SerializeField] bool _isCollectable;
+    [SerializeField] bool _facingRightOnStart = true;
     public bool IsCollectable { get { return _isCollectable; } }
     [SerializeField] List<MoveType> _moveSet;
     
@@ -26,6 +27,7 @@ public class GenericEnemy : MovingObject
         _spriteRenderer = GetComponent<SpriteRenderer>();
         if (_spriteRenderer == null)
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _facingRight = _facingRightOnStart;
     }
 
     protected override void OnBeat()
@@ -41,7 +43,7 @@ public class GenericEnemy : MovingObject
         } //TODO: else - update animator, for the more complext enemies like the fish
         
         var hitOther = TryMove(_moveSet[_moveIndex]);
-        if (hitOther == null)
+        if (hitOther == null || hitOther.gameObject == gameObject)
         {
             _moveIndex = ++_moveIndex % _moveSet.Count;
         }

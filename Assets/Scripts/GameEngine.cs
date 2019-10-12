@@ -13,8 +13,9 @@ public class GameEngine : MonoBehaviour
     public Action Beat;
     private float _timeSinceLevelLoadOnStart;
     private int _previousBeat;
-
     public int Beats { get { return _previousBeat; } }
+    [SerializeField] private int _beatsForLevel;
+    public int BeatsForLevel => _beatsForLevel;
 
     // Gameplay-related
     private int _health;
@@ -61,6 +62,7 @@ public class GameEngine : MonoBehaviour
     //TODO: Sound Manager 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioTestClip;
+    [SerializeField] private AudioClip _winFanfare;
     public bool TestBeat;
 
     // Session-State related
@@ -133,6 +135,12 @@ public class GameEngine : MonoBehaviour
 
         _sessionNumberOfBeats++;
         BeatsChanged?.Invoke(_sessionNumberOfBeats);
+
+        if (_sessionNumberOfBeats >= _beatsForLevel)
+        {
+            //TODO: special treatment for timer end
+            StopGame();
+        }
     }
 
     private void Update()
@@ -179,6 +187,10 @@ public class GameEngine : MonoBehaviour
         ChangeCanvasGroupState(_menuCanvasGroup, false);
         ChangeCanvasGroupState(_retryCanvasGroup, true);
         ChangeCanvasGroupState(_hudCanvasGroup, false);
+
+        _audioSource.clip = _winFanfare;
+        _audioSource.Play();
+
         _gameRunning = false;
     }
 

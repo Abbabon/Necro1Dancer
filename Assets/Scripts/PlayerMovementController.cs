@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovementController : MovingObject
 {
     [SerializeField] Projectile _projectilePrefab;
 
-    [SerializeField] private Transform _graphicsTransform;
     private bool _actedOnBeat;
     private CameraShakeEffect _cameraShaker = new CameraShakeEffect();
+
+    [SerializeField] private TextMeshProUGUI _overheadText;
 
     //Animations
     private bool _isJumping = false;
     private Animator _animator;
     private int spriteIndex = 0;
+    private int beatsWithoutMovement = 0;
     private bool facingRight = true;
 
     private MoveType _lastMovement;
@@ -29,6 +32,7 @@ public class PlayerMovementController : MovingObject
         base.Start();
         GameEngine.Instance.AmmoChanged += OnAmmoChange;
         GameEngine.Instance.SetPlayerRespawn(transform.position);
+        _overheadText.gameObject.SetActive(false);
     }
 
     protected void Update()
@@ -66,7 +70,11 @@ public class PlayerMovementController : MovingObject
         {
             if (!CanMoveInDirection(move))
                 return;
-            
+
+            if (_coyoteCoroutine != null)
+            {
+                StopCoroutine(_coyoteCoroutine);
+            }
             var hitOther = TryMove(move);
             if (hitOther == null)
             {
@@ -79,6 +87,9 @@ public class PlayerMovementController : MovingObject
                 if (hitOther.CompareTag("Respawn"))
                 {
                     GameEngine.Instance.SetPlayerRespawn(hitOther.transform.position);
+                }else if (hitOther.CompareTag("Crown"))
+                {
+                    GameEngine.Instance.StopGame();
                 }
 
                 var enemy = hitOther.GetComponent<GenericEnemy>();
@@ -101,11 +112,11 @@ public class PlayerMovementController : MovingObject
 
             _lastMovement = move;
 
-            if (_lastMovement == MoveType.Right && !facingRight)
+            if (_lastMovement == MoveType.Right && !_facingRight)
             {
                 Flip();
             }
-            else if (_lastMovement == MoveType.Left && facingRight)
+            else if (_lastMovement == MoveType.Left && _facingRight)
             {
                 Flip();
             }
@@ -122,9 +133,8 @@ public class PlayerMovementController : MovingObject
     public void HandleDrowning()
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0));
-        if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt")))
+        if (floor != null && (floor.name.Equals("water") || floor.name.Equals("water_alt") || floor.name.Equals("water_no_swap")))
         {
-            Debug.Log("Drowning");
             _animator.SetTrigger("Drown");
             transform.position = GameEngine.Instance.PlayerDrown();
         }
@@ -134,12 +144,6 @@ public class PlayerMovementController : MovingObject
     {
         var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(transform.position) + new Vector3Int(1 * (move == MoveType.Right ? 1 : -1), -1, 0));
         return floor != null;
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
     }
 
     //'Reset' movement for this beat
@@ -152,13 +156,32 @@ public class PlayerMovementController : MovingObject
         }
 
         //movement:
-        if (!_actedOnBeat)
+        if (!_actedOnBeat){
+            beatsWithoutMovement++;
+
+            //check for swallowage
+            if (GameEngine.Instance.Ammo > 0)
+            {
+                if (!_overheadText.gameObject.activeInHierarchy)
+                    _overheadText.gameObject.SetActive(true);
+                _overheadText.text = $"{5 - beatsWithoutMovement}";
+                
+                if (beatsWithoutMovement >= 5)
+                {
+                    Penalize();
+                    _animator.SetTrigger("Swallow");
+                    _overheadText.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
         {
-            Penalize();
+            beatsWithoutMovement = 0;
+            _overheadText.gameObject.SetActive(false);
         }
 
-        CoyoteFrames();
-
+        _coyoteCoroutine = StartCoroutine(CoyoteFrames());
+        
         _actedOnBeat = false;
     }
 
@@ -170,13 +193,8 @@ public class PlayerMovementController : MovingObject
 
     private void Penalize(bool swallow = true)
     {
-        if (GameEngine.Instance.Ammo > 0)
-        {
+        if (GameEngine.Instance.Ammo > 0){
             GameEngine.Instance.LoseAmmo();
-            if (swallow)
-            {
-                _animator.SetTrigger("Swallow");
-            }
         }
     }
 
@@ -186,7 +204,7 @@ public class PlayerMovementController : MovingObject
         {
             var lastMoveDirection = _lastMovement == MoveType.Right ? 1 : -1;
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
-            projectile.Direction = _lastMovement;
+            projectile.SetDirection(_lastMovement);
             _actedOnBeat = true;
             _animator.SetTrigger("Spit");
         }

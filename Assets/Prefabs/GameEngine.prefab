@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fcede5be93f43329d64eba0c04642d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _beatsForLevel: 400
   _audioTestClip: {fileID: 8300000, guid: d29c0e233686d434e8786999f5861c4c, type: 3}
+  _winFanfare: {fileID: 8300000, guid: 376250b59957df94f98aefed3ebecffd, type: 3}
   TestBeat: 0
   _redFlashOfDoom: {fileID: 0}
   _menuCanvasGroup: {fileID: 0}
