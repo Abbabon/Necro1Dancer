@@ -50,6 +50,7 @@ MonoBehaviour:
   _startSound: {fileID: 8300000, guid: 1a8b46c0899cd5e4398384ca9cbfd037, type: 3}
   _inGameMusic: {fileID: 8300000, guid: 4589eb59ed8655e459dda782979bdadb, type: 3}
   _winFanfare: {fileID: 8300000, guid: 376250b59957df94f98aefed3ebecffd, type: 3}
+  _eatSound: {fileID: 8300000, guid: 1a8b46c0899cd5e4398384ca9cbfd037, type: 3}
   TestBeat: 0
   _redFlashOfDoom: {fileID: 0}
   _menuCanvasGroup: {fileID: 0}

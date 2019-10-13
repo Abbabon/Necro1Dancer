@@ -54,6 +54,8 @@ public class GameEngine : MonoBehaviour
     {
         _ammo++;
         AmmoChanged?.Invoke(_ammo);
+
+        _audioSource.PlayOneShot(_eatSound);
     }
 
     [Button]
@@ -73,6 +75,7 @@ public class GameEngine : MonoBehaviour
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private AudioClip _inGameMusic;
     [SerializeField] private AudioClip _winFanfare;
+    [SerializeField] private AudioClip _eatSound;
     public bool TestBeat;
 
     // Session-State related
