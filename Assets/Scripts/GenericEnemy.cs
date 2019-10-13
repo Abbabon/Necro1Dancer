@@ -32,7 +32,7 @@ public class GenericEnemy : MovingObject
         if (_spriteRenderer == null)
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _facingRight = _facingRightOnStart;
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     protected override void OnBeat()
@@ -57,7 +57,7 @@ public class GenericEnemy : MovingObject
         }
         else if (hitOther.CompareTag("Player"))
         {
-            hitOther.transform.position = GameEngine.Instance.TakeDamage();
+            GameEngine.Instance.LoseHealth();
         }
     }
 

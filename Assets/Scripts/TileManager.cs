@@ -6,14 +6,13 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [Serializable]
-    private class TilePair
+    private class TileSequence
     {
-        public Tile tile1;
-        public Tile tile2;
+        public TileBase[] tiles;
+        [HideInInspector] public int currentIndex;
     }
 
-    [SerializeField] TilePair[] _swapPairs;
-    private bool _invertSwap;
+    [SerializeField] TileSequence[] _swapSequences;
 
     private Tilemap _tilemap;
 
@@ -25,16 +24,17 @@ public class TileManager : MonoBehaviour
 
     private void OnBeat()
     {
-        foreach (var pair in _swapPairs)
+        foreach (var sequence in _swapSequences)
         {
-            if (pair.tile1 == null || pair.tile2 == null) continue;
+            var nextIndex = sequence.currentIndex + 1;
+            if (nextIndex == sequence.tiles.Length) nextIndex = 0;
 
-            var tile1 = _invertSwap ? pair.tile2 : pair.tile1;
-            var tile2 = _invertSwap ? pair.tile1 : pair.tile2;
+            var tile1 = sequence.tiles[sequence.currentIndex];
+            var tile2 = sequence.tiles[nextIndex];
 
             _tilemap.SwapTile(tile1, tile2);
-        }
 
-        _invertSwap = !_invertSwap;
+            sequence.currentIndex = nextIndex;
+        }
     }
 }

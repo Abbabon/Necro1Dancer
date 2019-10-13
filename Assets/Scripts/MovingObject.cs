@@ -8,8 +8,18 @@ public abstract class MovingObject : MonoBehaviour
     protected Coroutine _coyoteCoroutine;
     protected bool _facingRight = true;
 
+    [SerializeField] private GameObject _splash;
+    private Transform _splashParent;
+    private Vector3 _splashRelativePosition;
+
     protected virtual void Start()
     {
+        if (_splash != null)
+        {
+            _splashParent = _splash.transform.parent;
+            _splashRelativePosition = _splash.transform.localPosition;
+            _splash.gameObject.SetActive(false);
+        }
         GameEngine.Instance.Beat += OnBeat;
     }
 
@@ -27,6 +37,7 @@ public abstract class MovingObject : MonoBehaviour
 
         var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
         var shouldMove = other == null || other.gameObject == gameObject || other.isTrigger;
+
         StartCoroutine(MoveCoroutine(futureCell, shouldMove));
         return other;
     }
@@ -56,7 +67,20 @@ public abstract class MovingObject : MonoBehaviour
         var endBodyPos = endPos + startBodyPos - startPos;
         transform.position = endPos;
         _bodyTranform.position = startBodyPos;
+        if ((endPos.x > startPos.x && !_facingRight) || (endPos.x < startPos.x && _facingRight))
+        {
+            Flip();
+        }
 
+        if (successful && CheckWater(endPos))
+        {
+            if (_splash != null)
+            {
+                _splash.gameObject.SetActive(true);
+                _splash.transform.position = endPos + new Vector3(0.5f,0.5f,0);
+                _splash.transform.parent = null;
+            }
+        }
 
         for (float time = 0; time < moveTime; time += Time.deltaTime)
         {
@@ -72,6 +96,13 @@ public abstract class MovingObject : MonoBehaviour
         transform.position = successful ? endPos : startPos;
         _bodyTranform.position = successful ? endBodyPos : startBodyPos;
         AfterMove();
+
+        if (_splash != null)
+        {
+            _splash.gameObject.SetActive(false);
+            _splash.transform.parent = _splashParent;
+            _splash.transform.localPosition = _splashRelativePosition;
+        }
     }
 
     protected IEnumerator CoyoteFrames()
@@ -91,5 +122,11 @@ public abstract class MovingObject : MonoBehaviour
     {
         _graphicsTransform.localScale = new Vector3(_graphicsTransform.localScale.x * -1, _graphicsTransform.localScale.y, _graphicsTransform.localScale.z);
         _facingRight = !_facingRight;
+    }
+
+    protected bool CheckWater(Vector3 position)
+    {
+        var floor = GameEngine.Instance.Tilemap.GetTile(GameEngine.Instance.Tilemap.WorldToCell(position));
+        return (floor != null && (floor.name.StartsWith("water") && !floor.name.Contains("middle")));// || floor.name.Equals("water_alt") || floor.name.Equals("water_no_swap")));
     }
 }
