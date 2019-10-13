@@ -213,8 +213,8 @@ public class GameEngine : MonoBehaviour
         _gameState = gameSessionState;
 
         ChangeCanvasGroupState(_menuCanvasGroup, (gameSessionState == GameSessionState.Menu));
-        ChangeCanvasGroupState(_retryCanvasGroup, (gameSessionState == GameSessionState.Win));
-        ChangeCanvasGroupState(_winningCanvasGroup, (gameSessionState == GameSessionState.Lose));
+        ChangeCanvasGroupState(_retryCanvasGroup, (gameSessionState == GameSessionState.Lose));
+        ChangeCanvasGroupState(_winningCanvasGroup, (gameSessionState == GameSessionState.Win));
         ChangeCanvasGroupState(_hudCanvasGroup, (gameSessionState == GameSessionState.Playing));
     }
 
