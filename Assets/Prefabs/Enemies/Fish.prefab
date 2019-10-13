@@ -116,7 +116,7 @@ PrefabInstance:
     - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
       propertyPath: _turnIntoLillypad
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3162390408632655532, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}

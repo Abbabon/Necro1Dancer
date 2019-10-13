@@ -54,6 +54,8 @@ public class GameEngine : MonoBehaviour
     {
         _ammo++;
         AmmoChanged?.Invoke(_ammo);
+
+        _audioSource.PlayOneShot(_eatSound);
     }
 
     [Button]
@@ -73,6 +75,7 @@ public class GameEngine : MonoBehaviour
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private AudioClip _inGameMusic;
     [SerializeField] private AudioClip _winFanfare;
+    [SerializeField] private AudioClip _eatSound;
     public bool TestBeat;
 
     // Session-State related
@@ -213,8 +216,8 @@ public class GameEngine : MonoBehaviour
         _gameState = gameSessionState;
 
         ChangeCanvasGroupState(_menuCanvasGroup, (gameSessionState == GameSessionState.Menu));
-        ChangeCanvasGroupState(_retryCanvasGroup, (gameSessionState == GameSessionState.Win));
-        ChangeCanvasGroupState(_winningCanvasGroup, (gameSessionState == GameSessionState.Lose));
+        ChangeCanvasGroupState(_retryCanvasGroup, (gameSessionState == GameSessionState.Lose));
+        ChangeCanvasGroupState(_winningCanvasGroup, (gameSessionState == GameSessionState.Win));
         ChangeCanvasGroupState(_hudCanvasGroup, (gameSessionState == GameSessionState.Playing));
     }
 
