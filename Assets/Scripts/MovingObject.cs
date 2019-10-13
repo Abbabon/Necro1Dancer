@@ -67,6 +67,10 @@ public abstract class MovingObject : MonoBehaviour
         var endBodyPos = endPos + startBodyPos - startPos;
         transform.position = endPos;
         _bodyTranform.position = startBodyPos;
+        if ((endPos.x > startPos.x && !_facingRight) || (endPos.x < startPos.x && _facingRight))
+        {
+            Flip();
+        }
 
         if (successful && CheckWater(endPos))
         {
