@@ -6415,11 +6415,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
         type: 3}
-      propertyPath: _moveSet.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
-        type: 3}
       propertyPath: _moveSet.Array.data[1]
       value: 2
       objectReference: {fileID: 0}
@@ -6427,11 +6422,6 @@ PrefabInstance:
         type: 3}
       propertyPath: _moveSet.Array.data[2]
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
-        type: 3}
-      propertyPath: _moveSet.Array.data[3]
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16282d555d53416489f02d17c811dc07, type: 3}
@@ -6661,16 +6651,6 @@ PrefabInstance:
     - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
         type: 3}
       propertyPath: _moveSet.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
-        type: 3}
-      propertyPath: _moveSet.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
-        type: 3}
-      propertyPath: _moveSet.Array.data[2]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1097183918108345152, guid: 16282d555d53416489f02d17c811dc07,
