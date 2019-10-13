@@ -20,10 +20,10 @@ public class BeatsCounter : MonoBehaviour
 
     private void OnBeatChanged(int beats){
         int beatsToShow = _showOpposite ? GameEngine.Instance.BeatsForLevel - beats : beats;
-        _beatsText.text = _showText ? $"You did it with {beatsToShow} beats!" : $"{beatsToShow}";
+        _beatsText.text = _showText ? $"You did it with {beatsToShow} Beats" : $"{beatsToShow}";
         if (beatsToShow <= 50 && beatsToShow > 0)
         {
-            _beatsText.text = _showText ? $"You did it with {beatsToShow} beats!" : $"<color=red>{beatsToShow}</color>";
+            _beatsText.text = _showText ? $"You did it with {beatsToShow} Beats" : $"<color=red>{beatsToShow}</color>";
         }
     }
 }
