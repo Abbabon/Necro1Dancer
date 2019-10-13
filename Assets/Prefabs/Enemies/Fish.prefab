@@ -26,11 +26,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6082121050861430039, guid: d0befe16be17d54438cbe25850568ade,
-        type: 3}
-      propertyPath: m_Name
-      value: Fish
-      objectReference: {fileID: 0}
     - target: {fileID: 6331759982230080815, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -96,6 +91,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6082121050861430039, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: m_Name
+      value: Fish
+      objectReference: {fileID: 0}
     - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
       propertyPath: _animationSprites.Array.size
@@ -124,6 +124,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: b58bced731c56034a8933696c8f74a81,
         type: 3}
+    - target: {fileID: 656605442164582524, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0befe16be17d54438cbe25850568ade, type: 3}
 --- !u!1 &7689239585367660606 stripped
