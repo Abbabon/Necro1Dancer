@@ -10,7 +10,37 @@ PrefabInstance:
     - target: {fileID: 1989819710562527395, guid: 97b646eec5c4ff1468e62229c2a237e8,
         type: 3}
       propertyPath: m_Name
-      value: BeeMoveRight
+      value: BeeMoveLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _moveSet.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _moveSet.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _moveSet.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _moveSet.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _beatsToLive
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
+        type: 3}
+      propertyPath: _moveSet.Array.data[2]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4429312821029884353, guid: 97b646eec5c4ff1468e62229c2a237e8,
         type: 3}
@@ -67,40 +97,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _moveSet.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _moveSet.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _moveSet.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _moveSet.Array.data[3]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _beatsToLive
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938695392400439356, guid: 97b646eec5c4ff1468e62229c2a237e8,
-        type: 3}
-      propertyPath: _moveSet.Array.data[2]
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2552472202752725754, guid: 97b646eec5c4ff1468e62229c2a237e8,
         type: 3}
       propertyPath: m_FlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97b646eec5c4ff1468e62229c2a237e8, type: 3}
