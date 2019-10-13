@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &5783561820250574151
+--- !u!95 &1381889491295669702
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -88,8 +88,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
+      propertyPath: _moveSet.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
       propertyPath: _moveSet.Array.data[0]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[4]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595095722467130985, guid: d0befe16be17d54438cbe25850568ade,
+        type: 3}
+      propertyPath: _moveSet.Array.data[5]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -5841608710047337178, guid: d0befe16be17d54438cbe25850568ade,
         type: 3}
