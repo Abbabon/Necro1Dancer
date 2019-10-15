@@ -58,7 +58,6 @@ public class PlayerMovementController : MovingObject
                 if (GameEngine.Instance.Ammo > 0)
                 {
                     ShootProjectile();
-                    GameEngine.Instance.LoseAmmo();
                 }
             }
         }
@@ -215,6 +214,7 @@ public class PlayerMovementController : MovingObject
             var lastMoveDirection = _lastMovement == MoveType.Right ? 1 : -1;
             var projectile = Instantiate(_projectilePrefab, transform.position + Vector3.right * lastMoveDirection, Quaternion.identity);
             projectile.SetDirection(_lastMovement);
+            GameEngine.Instance.LoseAmmo();
             _actedOnBeat = true;
             _animator.SetTrigger("Spit");
         }
