@@ -73,6 +73,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphicsTransform: {fileID: 5614289277973349507}
   _bodyTranform: {fileID: 5614289277973349507}
+  _splash: {fileID: 0}
+  _beatsToLive: 6
 --- !u!1 &3826815445365883850
 GameObject:
   m_ObjectHideFlags: 0
