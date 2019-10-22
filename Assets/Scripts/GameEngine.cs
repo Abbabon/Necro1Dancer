@@ -35,13 +35,14 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
+    private MovingObject[] _takenCells;
 
     [Button]
     public void LoseHealth()
     {
         DoScreenFlash();
 
-        _health--;
+        //_health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0){
@@ -110,6 +111,7 @@ public class GameEngine : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _menuMusic;
         _audioSource.Play();
+        _takenCells = new MovingObject[_tilemap.size.x];
 
         _beatFraction = 60f / _bpm;
         Beat += OnBeat;
@@ -206,7 +208,7 @@ public class GameEngine : MonoBehaviour
         _audioSource.clip = _inGameMusic;
         _audioSource.Play();
         _audioSource.PlayOneShot(_startSound);
-
+        //wait(1/6 beat);
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
     }

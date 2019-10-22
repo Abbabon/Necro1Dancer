@@ -61,14 +61,6 @@ public class GenericEnemy : MovingObject
         }
     }
 
-    protected void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            KillEnemy();
-        }
-    }
-
     public void KillEnemy()
     {
         //start the chain of events that turn this enemy into a lilypad

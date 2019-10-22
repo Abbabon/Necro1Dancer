@@ -35,8 +35,10 @@ public abstract class MovingObject : MonoBehaviour
         var tilemap = GameEngine.Instance.Tilemap;
         var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + MakeStep(move));
 
-        var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
+        var other = GameEngine.Instance.//Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
         var shouldMove = other == null || other.gameObject == gameObject || other.isTrigger;
+        GameEngine.Instance.Populate(futureCell.x);
+        GameEngine.Instance.Depopulate(transform.position.x);
 
         StartCoroutine(MoveCoroutine(futureCell, shouldMove));
         return other;
