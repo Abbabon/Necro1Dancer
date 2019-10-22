@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Projectile : MovingObject
 {
+    [SerializeField] int _beatsToLive;
     private MoveType _direction;
     private Transform _transform;
 
@@ -21,6 +22,11 @@ public class Projectile : MovingObject
 
     protected override void OnBeat()
     {
+        if (_beatsToLive-- <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         var hitOther = TryMove(_direction);
         if (hitOther != null && !hitOther.CompareTag("Respawn") && hitOther.GetComponent<Projectile>() == null)
         {

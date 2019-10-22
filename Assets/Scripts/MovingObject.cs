@@ -65,7 +65,10 @@ public abstract class MovingObject : MonoBehaviour
         var startBodyPos = _bodyTranform.position;
         var startPos = transform.position;
         var endBodyPos = endPos + startBodyPos - startPos;
-        transform.position = endPos;
+        if (successful)
+        {
+            transform.position = endPos;
+        }
         _bodyTranform.position = startBodyPos;
         if ((endPos.x > startPos.x && !_facingRight) || (endPos.x < startPos.x && _facingRight))
         {

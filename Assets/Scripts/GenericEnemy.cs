@@ -51,7 +51,7 @@ public class GenericEnemy : MovingObject
         }
 
         var hitOther = TryMove(_moveSet[_moveIndex]);
-        if (hitOther == null || hitOther.gameObject == gameObject)
+        if (hitOther == null || hitOther.gameObject == gameObject || hitOther.isTrigger)
         {
             _moveIndex = ++_moveIndex % _moveSet.Count;
         }
