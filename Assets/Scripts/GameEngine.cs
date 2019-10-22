@@ -35,7 +35,7 @@ public class GameEngine : MonoBehaviour
     public Action<int> BeatsChanged;
     private ScreenFlash _screenFlash = new ScreenFlash();
     private Vector2 _checkpoint;
-    private MovingObject[] _takenCells;
+    private GameObject[,] _takenCells;
 
     [Button]
     public void LoseHealth()
@@ -64,7 +64,7 @@ public class GameEngine : MonoBehaviour
     {
         if (_ammo > 0)
         {
-            _ammo--;
+            //_ammo--;
             AmmoChanged?.Invoke(_ammo);
         }
     }
@@ -111,7 +111,7 @@ public class GameEngine : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _menuMusic;
         _audioSource.Play();
-        _takenCells = new MovingObject[_tilemap.size.x];
+        _takenCells = new GameObject[_tilemap.size.x, _tilemap.size.y];
 
         _beatFraction = 60f / _bpm;
         Beat += OnBeat;
@@ -251,5 +251,26 @@ public class GameEngine : MonoBehaviour
     {
         canvasGroup.alpha = state ? 1 : 0;
         canvasGroup.interactable = state;
+    }
+
+    public GameObject MakeMove(Vector3Int current, Vector3Int future)
+    {
+        int normalizationX = (int)(_tilemap.localBounds.extents.x -_tilemap.localBounds.center.x);
+        int normalizationY = (int)(_tilemap.localBounds.extents.y - _tilemap.localBounds.center.y);
+        var temp = _takenCells[future.x + normalizationX, future.y + normalizationY];
+        if(temp == null)
+        {
+            _takenCells[future.x + normalizationX, future.y + normalizationY] = _takenCells[current.x + normalizationX, current.y + normalizationY];
+            _takenCells[current.x + normalizationX, current.y + normalizationY] = null;
+        }
+        return temp;
+    }
+
+    public void Populate(GameObject thing)
+    {
+        int normalizationX = (int)(_tilemap.localBounds.extents.x - _tilemap.localBounds.center.x);
+        int normalizationY = (int)(_tilemap.localBounds.extents.y - _tilemap.localBounds.center.y);
+        var cell = _tilemap.WorldToCell(thing.transform.position);
+        _takenCells[cell.x + normalizationX, cell.y + normalizationY] = thing;
     }
 }

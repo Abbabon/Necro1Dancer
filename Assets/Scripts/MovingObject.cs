@@ -21,6 +21,7 @@ public abstract class MovingObject : MonoBehaviour
             _splash.gameObject.SetActive(false);
         }
         GameEngine.Instance.Beat += OnBeat;
+        GameEngine.Instance.Populate(gameObject);
     }
 
     protected void OnDestroy()
@@ -35,13 +36,12 @@ public abstract class MovingObject : MonoBehaviour
         var tilemap = GameEngine.Instance.Tilemap;
         var futureCell = tilemap.CellToWorld(tilemap.WorldToCell(transform.position) + MakeStep(move));
 
-        var other = GameEngine.Instance.//Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
-        var shouldMove = other == null || other.gameObject == gameObject || other.isTrigger;
-        GameEngine.Instance.Populate(futureCell.x);
-        GameEngine.Instance.Depopulate(transform.position.x);
+        //var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
+        var other = GameEngine.Instance.MakeMove(tilemap.WorldToCell(transform.position), tilemap.WorldToCell(futureCell));
+        var shouldMove = other == null || other == gameObject || other.GetComponent<Collider2D>().isTrigger;
 
         StartCoroutine(MoveCoroutine(futureCell, shouldMove));
-        return other;
+        return other == null ? Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f) : other.GetComponent<Collider2D>();
     }
 
     private Vector3Int MakeStep(MoveType stepDir)

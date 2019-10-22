@@ -146,6 +146,8 @@ public class PlayerMovementController : MovingObject
 
     public void ResetToCheckpoint(Vector2 position)
     {
+        var tilemap = GameEngine.Instance.Tilemap;
+        GameEngine.Instance.MakeMove(tilemap.WorldToCell(transform.position), tilemap.WorldToCell(position));
         transform.position = position;
     }
     
