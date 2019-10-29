@@ -6103,7 +6103,7 @@ PrefabInstance:
     - target: {fileID: 842563755742033444, guid: 18fdcfe6ed5c8094ab1022eef8534751,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 842563755742033444, guid: 18fdcfe6ed5c8094ab1022eef8534751,
         type: 3}
@@ -6154,12 +6154,17 @@ PrefabInstance:
         type: 3}
       propertyPath: _toSpawn
       value: 
-      objectReference: {fileID: 7511698845132583581, guid: 91ec6c6350b7abb40a5708c3f588281b,
+      objectReference: {fileID: 4248847286045551743, guid: 729547c330c4b4943a9a3dcbaf589058,
         type: 3}
     - target: {fileID: 842563755742033446, guid: 18fdcfe6ed5c8094ab1022eef8534751,
         type: 3}
       propertyPath: _spawnOffset.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 842563755742033446, guid: 18fdcfe6ed5c8094ab1022eef8534751,
+        type: 3}
+      propertyPath: _spawnOffset.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842563755742033446, guid: 18fdcfe6ed5c8094ab1022eef8534751,
         type: 3}
@@ -6170,11 +6175,6 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnBeats
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 842563755742033446, guid: 18fdcfe6ed5c8094ab1022eef8534751,
-        type: 3}
-      propertyPath: _spawnOffset.y
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18fdcfe6ed5c8094ab1022eef8534751, type: 3}

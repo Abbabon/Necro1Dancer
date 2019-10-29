@@ -17,6 +17,7 @@ public class GenericEnemy : MovingObject
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] Animator _animator;
     [SerializeField] int _beatsToLive;
+    [SerializeField] bool _loop = true;
 
     public Action OnDeathEvent;
 
@@ -53,7 +54,14 @@ public class GenericEnemy : MovingObject
         var hitOther = TryMove(_moveSet[_moveIndex]);
         if (hitOther == null || hitOther.gameObject == gameObject || hitOther.isTrigger)
         {
-            _moveIndex = ++_moveIndex % _moveSet.Count;
+            if (_loop)
+            {
+                _moveIndex = ++_moveIndex % _moveSet.Count;
+            }
+            else
+            {
+                _moveIndex = Mathf.Min(++_moveIndex, _moveSet.Count - 1);
+            }
         }
         else if (hitOther.CompareTag("Player"))
         {

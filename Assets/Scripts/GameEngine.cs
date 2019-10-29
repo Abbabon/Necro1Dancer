@@ -42,7 +42,7 @@ public class GameEngine : MonoBehaviour
     {
         DoScreenFlash();
 
-        //_health--;
+        _health--;
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0){
@@ -64,7 +64,7 @@ public class GameEngine : MonoBehaviour
     {
         if (_ammo > 0)
         {
-            //_ammo--;
+            _ammo--;
             AmmoChanged?.Invoke(_ammo);
         }
     }
@@ -209,8 +209,15 @@ public class GameEngine : MonoBehaviour
         _audioSource.Play();
         _audioSource.PlayOneShot(_startSound);
         //wait(1/6 beat);
+        StartCoroutine(DelayStartGame());
+    }
+
+    private IEnumerator DelayStartGame()
+    {
+        yield return new WaitForSeconds(_beatFraction / 6);
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
+        yield return null;
     }
 
     private void ChangeGameState(GameSessionState gameSessionState)
