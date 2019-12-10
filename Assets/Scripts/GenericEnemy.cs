@@ -52,7 +52,7 @@ public class GenericEnemy : MovingObject
         }
 
         var hitOther = TryMove(_moveSet[_moveIndex]);
-        if (hitOther == null || hitOther.isTrigger)
+        if (hitOther == null || hitOther.gameObject == gameObject || hitOther.isTrigger)
         {
             if (_loop)
             {

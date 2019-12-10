@@ -38,7 +38,7 @@ public abstract class MovingObject : MonoBehaviour
 
         //var other = Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f);
         var other = GameEngine.Instance.MakeMove(tilemap.WorldToCell(transform.position), tilemap.WorldToCell(futureCell));
-        var shouldMove = other == null;
+        var shouldMove = other == null || other == gameObject || other.GetComponent<Collider2D>().isTrigger;
 
         StartCoroutine(MoveCoroutine(futureCell, shouldMove));
         return other == null ? Physics2D.OverlapCircle(new Vector2(futureCell.x + 0.5f, futureCell.y + 0.5f), 0.1f) : other.GetComponent<Collider2D>();

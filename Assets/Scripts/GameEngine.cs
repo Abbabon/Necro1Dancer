@@ -208,17 +208,13 @@ public class GameEngine : MonoBehaviour
         _audioSource.clip = _inGameMusic;
         _audioSource.Play();
         _audioSource.PlayOneShot(_startSound);
-        PlayerDie();
         //wait(1/6 beat);
-        //StartCoroutine(DelayStartGame());
+        StartCoroutine(DelayStartGame());
     }
 
     private IEnumerator DelayStartGame()
     {
-        for (float time = 0; time < _beatFraction / 6; time += Time.deltaTime)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(_beatFraction / 6);
         _timeSinceLevelLoadOnStart = Time.timeSinceLevelLoad;
         InitializeSession();
         yield return null;
